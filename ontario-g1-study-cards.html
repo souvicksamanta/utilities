@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario G1 Study Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef4f0;--card:#fff;--ink:#14231b;--muted:#5a6b61;--line:#dbe6df;
+  --accent:#00703c;--accent-dk:#00532c;--accent-soft:#e2f2e8;--accent-2:#f5fbf7;
+  --hl:#dff1e6;--hl-ink:#005a30;
+  --shadow:0 1px 2px rgba(16,40,26,.06),0 4px 14px rgba(16,40,26,.06);
+  --font:"Plus Jakarta Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1512;--card:#18201b;--ink:#e8efea;--muted:#9fb0a5;--line:#28332c;
+  --accent:#36b873;--accent-dk:#2a9a5f;--accent-soft:#18301f;--accent-2:#141c17;--hl:#1b3a26;--hl-ink:#8be3b2;
+  --shadow:none;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-padding-top:120px}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.65 var(--font);-webkit-text-size-adjust:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+button{font:600 14px var(--font);cursor:pointer;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;white-space:nowrap;flex:none;line-height:1.2}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* ---------- top app bar ---------- */
+.top{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.appbar{background:var(--accent);color:#fff}
+.appbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;min-width:0}
+.logo .ic{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:19px;flex:none}
+.logo span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar .sp{flex:1}
+.seg{display:inline-flex;background:rgba(0,0,0,.18);border-radius:99px;padding:3px;flex:none}
+.seg button{border:0;background:none;color:#fff;padding:6px 14px}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--accent-dk)}
+#fcBtn{background:#fff;border-color:#fff;color:var(--accent-dk)}
+.chipbar{background:var(--card);border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 20px;max-width:1180px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;gap:6px}
+.chip .e{font-size:15px;line-height:1}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+button.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ---------- sections ---------- */
+main{padding:22px 0 60px;display:grid;gap:36px}
+main>section,.grid>*,.signs>*,.legend>*,.numgrid>*,.lights>*{min-width:0}
+.shead{display:flex;align-items:center;gap:14px;margin:0 0 14px}
+.shead .big{width:52px;height:52px;border-radius:16px;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;font-size:28px;flex:none}
+.shead h2{margin:0;font-size:22px;line-height:1.2;font-weight:800;letter-spacing:-.01em}
+.shead p{margin:2px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);overflow-wrap:anywhere}
+.card h3{margin:0 0 10px;font-size:16px;line-height:1.3;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:10px}
+.card h3 .e{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);display:grid;place-items:center;font-size:18px;flex:none}
+.card ul{margin:0;padding-left:18px}
+.card li{margin:5px 0}
+.card li::marker{color:var(--accent)}
+.k{background:var(--hl);color:var(--hl-ink);padding:1px 6px;border-radius:6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tip{font-size:13.5px;color:var(--muted);margin:12px 0 0;background:var(--accent-2);border:1px dashed var(--line);padding:9px 11px;border-radius:10px;line-height:1.55}
+.tip b{color:var(--ink)}
+table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:14.5px}
+td,th{padding:6px 8px;text-align:left;vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.pts{font-size:22px;font-weight:800;text-align:center;width:58px;color:#fff;border-radius:10px;vertical-align:middle}
+td.pts+td{background:var(--accent-2);border-radius:10px;line-height:1.55}
+.p7{background:#3b0f12}.p6{background:#9b1c23}.p5{background:#c7372f}.p4{background:#d9601a}.p3{background:#c58b00}.p2{background:#00703c}
+.card table td{border:0}
+
+/* key numbers */
+.numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.num{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 12px;text-align:center;box-shadow:var(--shadow)}
+.num .e{font-size:24px;line-height:1;display:block;margin-bottom:4px}
+.num .v{font-size:25px;font-weight:800;color:var(--accent);background:none;padding:0;line-height:1.25;letter-spacing:-.01em}
+.num .l{font-size:13.5px;color:var(--muted);margin-top:4px;line-height:1.45;overflow-wrap:anywhere}
+
+/* signs */
+.filters{display:flex;gap:8px;margin:0 0 14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filters::-webkit-scrollbar{display:none}
+.filters button{font-size:13px;padding:6px 12px}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.sign{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:var(--shadow)}
+.sign svg{width:96px;height:96px;margin:2px 0 10px}
+.sign .ans{width:100%;position:relative}
+.sign .n{font-weight:800;font-size:14.5px;line-height:1.3}
+.sign .m{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45;overflow-wrap:anywhere}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.4;padding:3px 9px;border-radius:99px;margin-top:10px;background:var(--accent-soft);color:var(--accent)}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-bottom:16px}
+.legend .card{display:flex;gap:12px;align-items:center;padding:10px 14px;font-size:14px;line-height:1.45}
+.legend svg{width:48px;height:48px;flex:none}
+.lights{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.light{display:flex;gap:14px;align-items:center}
+.light h3{margin:0 0 4px!important}
+.light svg{width:38px;height:92px;flex:none}
+.light .ans{font-size:14px;line-height:1.5;position:relative}
+.blink{animation:bl 1s steps(2,start) infinite}
+@keyframes bl{to{opacity:.15}}
+
+/* quiz mode */
+body.quiz .k{filter:blur(6px);cursor:pointer;user-select:none}
+body.quiz .k.shown{filter:none}
+body.quiz .sign .ans,body.quiz .light .ans{cursor:pointer;min-height:44px}
+body.quiz .sign:not(.open) .ans>*,body.quiz .light:not(.open) .ans>*{filter:blur(7px);user-select:none}
+body.quiz .sign:not(.open) .ans::after,body.quiz .light:not(.open) .ans::after{content:"👆 Tap to reveal";position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--accent)}
+
+/* memory */
+.memo{background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:8px 18px;box-shadow:var(--shadow)}
+.memo ul{margin:0;padding:0;list-style:none}
+.memo li{margin:0;padding:10px 0 10px 34px;position:relative;border-bottom:1px dashed var(--line);line-height:1.55}
+.memo li:last-child{border-bottom:0}
+.memo li::before{content:"💡";position:absolute;left:2px;top:9px}
+
+/* flashcards */
+#fc{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+#fc.open{display:flex}
+#fc .box{background:var(--card);border-radius:20px;max-width:420px;width:100%;padding:22px;text-align:center;border-top:6px solid var(--accent)}
+#fc svg{width:170px;height:170px}
+#fc .q{min-height:70px;margin:10px 0;line-height:1.5}
+#fc .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+#fc .score{font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.fab{display:none}
+footer{color:var(--muted);font-size:13px;padding:0 20px 40px;max-width:1180px;margin:0 auto;line-height:1.5}
+
+/* ---------- phone ---------- */
+@media (max-width:640px){
+  body{font-size:15px}
+  html{scroll-padding-top:112px}
+  .wrap{padding:0 12px}
+  .appbar .wrap{height:52px;gap:8px}
+  .logo{font-size:16px;gap:8px}
+  .logo .ic{width:30px;height:30px;font-size:16px}
+  .seg button{padding:6px 11px;font-size:13px}
+  #fcBtn{display:none}
+  .chips{padding:8px 12px;gap:6px}
+  .chips button{font-size:13px;padding:6px 11px}
+  .fab{display:block;position:fixed;right:14px;bottom:16px;z-index:30;box-shadow:0 6px 18px rgba(0,0,0,.25);padding:12px 18px;font-size:14px}
+  main{padding:16px 0 90px;gap:30px}
+  .shead{gap:12px;margin-bottom:12px}
+  .shead .big{width:44px;height:44px;font-size:23px;border-radius:13px}
+  .shead h2{font-size:19px}
+  .shead p{font-size:13px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .card{padding:14px}
+  .numgrid{grid-template-columns:1fr 1fr;gap:8px}
+  .num{padding:12px 8px}
+  .num .e{font-size:20px}
+  .num .v{font-size:21px}
+  .num .l{font-size:12.5px}
+  .signs{grid-template-columns:1fr 1fr;gap:8px}
+  .sign{padding:12px 8px}
+  .sign svg{width:74px;height:74px;margin-bottom:8px}
+  .sign .n{font-size:13.5px}
+  .sign .m{font-size:12.5px}
+  .tag{font-size:9.5px;padding:2px 7px}
+  .filters{margin:0 -12px 12px;padding:0 12px 2px}
+  .legend{grid-template-columns:1fr 1fr;gap:8px}
+  .legend .card{flex-direction:column;text-align:center;gap:6px;padding:10px 8px;font-size:12.5px}
+  .legend svg{width:38px;height:38px}
+  .lights{grid-template-columns:1fr;gap:8px}
+  .light svg{width:30px;height:74px}
+  table{font-size:13.5px}
+  td,th{padding:6px 6px}
+  .pts{width:40px;font-size:18px}
+  #fc{padding:10px;align-items:flex-end}
+  #fc .box{padding:18px 16px;border-radius:20px}
+  #fc svg{width:150px;height:150px}
+  #fc .row button{flex:1;padding:12px}
+}
+@media (max-width:340px){.signs,.numgrid,.legend{grid-template-columns:1fr}.logo span{display:none}}
+@media print{.top,.fab,#fc{display:none}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="appbar"><div class="wrap">
+    <div class="logo"><div class="ic">🚗</div><span>Ontario G1 Study Cards</span></div>
+    <div class="sp"></div>
+    <div class="seg" role="group" aria-label="Mode">
+      <button id="mStudy" aria-pressed="true">Study</button>
+      <button id="mQuiz" aria-pressed="false">Quiz</button>
+    </div>
+    <button id="fcBtn">🃏 Sign flashcards</button>
+  </div></div>
+  <div class="chipbar"><div class="chips" id="chips" role="group" aria-label="Topic">
+    <button class="chip" data-t="all" aria-pressed="true"><span class="e">✨</span>All</button>
+    <button class="chip" data-t="test"><span class="e">🪪</span>Licence</button>
+    <button class="chip" data-t="numbers"><span class="e">🔢</span>Key numbers</button>
+    <button class="chip" data-t="rules"><span class="e">📘</span>Rules</button>
+    <button class="chip" data-t="lights"><span class="e">🚦</span>Lights &amp; lines</button>
+    <button class="chip" data-t="signs"><span class="e">🛑</span>Road signs</button>
+    <button class="chip" data-t="demerits"><span class="e">⚠️</span>Demerit points</button>
+    <button class="chip" data-t="penalties"><span class="e">🚔</span>Penalties</button>
+    <button class="chip" data-t="memory"><span class="e">🧠</span>Memory tricks</button>
+  </div></div>
+</div>
+<button class="fab pri" id="fabBtn">🃏 Flashcards</button>
+<main class="wrap">
+
+<!-- ============ TEST & LICENCE ============ -->
+<section id="test">
+<div class="shead"><div class="big">🪪</div><div><h2>The test &amp; graduated licensing</h2><p>What the G1 test looks like and the rules you must follow at each level.</p></div></div>
+<div class="grid">
+  <div class="card"><h3><span class="e">📝</span>G1 knowledge test</h3><ul>
+    <li>Minimum age: <span class="k">16</span></li>
+    <li>Vision test + written knowledge test (bring ID showing legal name, birth date, signature)</li>
+    <li><span class="k">40</span> multiple-choice questions in two parts: <span class="k">20 rules of the road</span> + <span class="k">20 road signs</span></li>
+    <li>Must get <span class="k">16 / 20 (80%)</span> in <b>each</b> part. Passing one part doesn't save the other.</li>
+    <li>Whole graduated system must be finished within <span class="k">5 years</span></li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🔰</span>G1 conditions (Level One)</h3><ul>
+    <li>Blood alcohol: <span class="k">zero</span> (no cannabis/drugs either)</li>
+    <li>Accompanying driver in the front passenger seat: full <span class="k">Class G</span> or higher, at least <span class="k">4 years</span> of driving experience, BAC under <span class="k">0.05%</span></li>
+    <li>Only the accompanying driver may sit in the front seat</li>
+    <li>Every passenger needs a <span class="k">working seatbelt</span></li>
+    <li><b>No</b> driving <span class="k">midnight – 5 a.m.</span></li>
+    <li><b>No</b> 400-series highways posted over <span class="k">80 km/h</span>, and no QEW, Don Valley Pkwy, Gardiner Expwy, E.C. Row Expwy or Conestoga Pkwy. <b>Exception:</b> the accompanying driver is a licensed driving instructor.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🗓️</span>Timeline</h3><ul>
+    <li>G1 lasts <span class="k">12 months</span>, or <span class="k">8 months</span> with an approved Beginner Driver Education course (BDE = 40 hrs: 20 class + 10 in-car + 10 flexible)</li>
+    <li>Pass the <b>G1 road test</b> to get <b>G2</b></li>
+    <li>G2 lasts at least <span class="k">12 months</span>, then the <b>G road test</b> (includes highway driving)</li>
+    <li>Whole process: at least <span class="k">20 months</span></li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚙</span>G2 conditions (Level Two)</h3><ul>
+    <li>BAC <span class="k">zero</span>; seatbelt for every passenger</li>
+    <li>Can drive alone, any road, any time</li>
+    <li>Drivers aged <span class="k">19 and under</span>, midnight to 5 a.m.:<br>
+      first 6 months: only <span class="k">1</span> passenger aged 19 or under<br>
+      after 6 months (until full G or age 20): up to <span class="k">3</span> passengers aged 19 or under</li>
+    <li>Exempt: a fully licensed driver in the front seat, or passengers who are immediate family</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🪪</span>Licence paperwork</h3><ul>
+    <li>Carry your licence whenever you drive; show it when police ask</li>
+    <li>Report a change of name or address within <span class="k">6 days</span></li>
+    <li>Car must have a valid vehicle permit (ownership) and liability insurance. Carry the insurance card.</li>
+    <li>Drivers <span class="k">21 and under</span> (any licence class) must have <span class="k">zero</span> BAC</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">👶</span>Child car seats</h3><ul>
+    <li>Under <span class="k">9 kg</span> (20 lb): <b>rear-facing</b> seat</li>
+    <li><span class="k">9–18 kg</span> (20–40 lb): <b>forward-facing</b> seat with tether</li>
+    <li><span class="k">18–36 kg</span> (40–80 lb), under 8 years and under 145 cm: <b>booster seat</b></li>
+    <li>Seatbelt alone once the child is <span class="k">8 years</span> old, <b>or</b> <span class="k">36 kg</span>+, <b>or</b> <span class="k">145 cm</span>+</li>
+    <li>Safest spot for kids under <span class="k">13</span>: the back seat</li>
+    <li>The <b>driver</b> is responsible for passengers under <span class="k">16</span> buckling up</li>
+  </ul></div>
+</div>
+</section>
+
+<!-- ============ KEY NUMBERS ============ -->
+<section id="numbers">
+<div class="shead"><div class="big">🔢</div><div><h2>Key numbers</h2><p>Distances, limits and amounts that show up on almost every test.</p></div></div>
+<div class="numgrid">
+  <div class="num"><span class="e">🏙️</span><div class="v k">50 km/h</div><div class="l">Default limit in cities, towns &amp; villages (when no sign)</div></div>
+  <div class="num"><span class="e">🌲</span><div class="v k">80 km/h</div><div class="l">Default limit outside built-up areas</div></div>
+  <div class="num"><span class="e">⏱️</span><div class="v k">2 sec</div><div class="l">Minimum following distance (more in bad weather)</div></div>
+  <div class="num"><span class="e">🚌</span><div class="v k">20 m</div><div class="l">Stop at least this far behind a stopped school bus with red lights flashing</div></div>
+  <div class="num"><span class="e">🚂</span><div class="v k">5 m</div><div class="l">Stop at least this far from the nearest rail or gate at a railway crossing</div></div>
+  <div class="num"><span class="e">🚒</span><div class="v k">150 m</div><div class="l">Don't follow a fire truck responding to an alarm closer than this</div></div>
+  <div class="num"><span class="e">🔦</span><div class="v k">150 m</div><div class="l">Switch to low beams this far from an <b>oncoming</b> vehicle</div></div>
+  <div class="num"><span class="e">🚗</span><div class="v k">60 m</div><div class="l">Use low beams when <b>following</b> within this distance</div></div>
+  <div class="num"><span class="e">🌅</span><div class="v k">½ hr</div><div class="l">Headlights on from ½ hr before sunset to ½ hr after sunrise</div></div>
+  <div class="num"><span class="e">🌫️</span><div class="v k">150 m</div><div class="l">Headlights on any time you can't clearly see people or vehicles this far away</div></div>
+  <div class="num"><span class="e">🧯</span><div class="v k">3 m</div><div class="l">No parking within this distance of a fire hydrant</div></div>
+  <div class="num"><span class="e">🚦</span><div class="v k">9 m / 15 m</div><div class="l">No parking within 9 m of an intersection, or 15 m if it has traffic lights</div></div>
+  <div class="num"><span class="e">🛤️</span><div class="v k">15 m</div><div class="l">No parking within this distance of the nearest rail at a level railway crossing</div></div>
+  <div class="num"><span class="e">🌉</span><div class="v k">100 m</div><div class="l">No parking on or within this distance of a bridge</div></div>
+  <div class="num"><span class="e">🏨</span><div class="v k">6 m</div><div class="l">No parking within this distance of a public entrance (hotel, theatre, hall)</div></div>
+  <div class="num"><span class="e">👀</span><div class="v k">125 m</div><div class="l">Don't park where you can't be seen clearly this far away in both directions</div></div>
+  <div class="num"><span class="e">🚸</span><div class="v k">30 m</div><div class="l">Never pass a vehicle within this distance of a pedestrian crossover</div></div>
+  <div class="num"><span class="e">🚲</span><div class="v k">1 m</div><div class="l">Minimum space when passing a cyclist (fine + 2 points)</div></div>
+  <div class="num"><span class="e">🚋</span><div class="v k">2 m</div><div class="l">Stop at least this far behind the rear doors of a stopped streetcar</div></div>
+  <div class="num"><span class="e">📏</span><div class="v k">30 cm</div><div class="l">Park parallel, no more than this far from the curb</div></div>
+  <div class="num"><span class="e">🍷</span><div class="v k">0.05%</div><div class="l">Max BAC for a G1 accompanying driver; also the start of the "warn range" (0.05–0.08)</div></div>
+  <div class="num"><span class="e">🚫</span><div class="v k">0.08%</div><div class="l">Criminal limit (80 mg/100 mL) → 90-day suspension + 7-day impound</div></div>
+  <div class="num"><span class="e">💥</span><div class="v k">$5,000</div><div class="l">Report a collision to police if there's an injury or damage over this amount</div></div>
+  <div class="num"><span class="e">📅</span><div class="v k">2 years</div><div class="l">Demerit points stay on your record this long (from the offence date)</div></div>
+  <div class="num"><span class="e">🛑</span><div class="v k">2 km</div><div class="l">A train can need up to this distance to stop</div></div>
+  <div class="num"><span class="e">🏠</span><div class="v k">6 days</div><div class="l">Time to report a change of address to ServiceOntario</div></div>
+</div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section id="rules">
+<div class="shead"><div class="big">📘</div><div><h2>Rules of the road</h2><p>Right-of-way, special vehicles, turns, passing, parking and emergencies.</p></div></div>
+<div class="grid">
+  <div class="card"><h3><span class="e">🔀</span>Right-of-way</h3><ul>
+    <li><b>All-way stop:</b> first vehicle to stop goes first. If two stop at the same time, <span class="k">yield to the vehicle on your right</span>.</li>
+    <li><b>Uncontrolled intersection</b> (no signs/lights): also yield to the vehicle on the <span class="k">right</span>.</li>
+    <li><b>Left turn:</b> yield to oncoming traffic and pedestrians.</li>
+    <li><b>Yield sign:</b> slow down or stop and give way to traffic and pedestrians.</li>
+    <li>Entering a road from a <b>private road or driveway</b>: yield to vehicles on the road and to pedestrians.</li>
+    <li>Right-of-way is something you <b>give</b>, not take. Never insist on it if it would cause a collision.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">✋</span>Where to stop</h3><ul>
+    <li>At the <span class="k">stop line</span>. No line? Stop at the <span class="k">crosswalk</span>. No crosswalk? Stop at the <span class="k">edge of the sidewalk</span>. No sidewalk? Stop at the <span class="k">edge of the intersection</span>.</li>
+    <li>Come to a <b>complete</b> stop. Rolling stops are illegal.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚶</span>Pedestrians</h3><ul>
+    <li><b>Pedestrian crossover (PXO)</b> or <b>school crossing guard</b>: stop and wait until the pedestrian or guard has <span class="k">completely crossed the road</span>.</li>
+    <li>Never pass another vehicle within <span class="k">30 m</span> of a PXO.</li>
+    <li>A pedestrian with a <b>white cane or guide dog</b> always gets the right-of-way.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚌</span>School buses</h3><ul>
+    <li><b>Amber</b> overhead lights flashing: slow down and prepare to stop.</li>
+    <li><b>Red</b> lights flashing or stop arm out: <span class="k">stop from both directions</span>.</li>
+    <li>Behind the bus: stop at least <span class="k">20 m</span> back.</li>
+    <li><b>Road with a median:</b> only traffic <b>behind</b> the bus must stop.</li>
+    <li>Wait until the bus moves or the lights stop flashing. Fine + <span class="k">6 points</span>.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚑</span>Emergency vehicles &amp; Move Over</h3><ul>
+    <li>Siren or flashing red/blue lights behind you: <b>pull to the right edge and stop</b>. Stay clear of intersections.</li>
+    <li>On a one-way road, pull to the nearest edge.</li>
+    <li>Stopped emergency vehicle or tow truck with lights flashing: <b>slow down</b> and <b>move over a lane</b> if safe. (3 points)</li>
+    <li>Don't follow a fire truck within <span class="k">150 m</span>.</li>
+    <li>Snowplows and road maintenance vehicles use flashing <b>blue</b> lights. Stay back; don't pass.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚋</span>Streetcars</h3><ul>
+    <li>Pass on the <b>right</b> only (unless on a one-way street).</li>
+    <li>Stopped with doors open: stop <span class="k">2 m</span> behind the rear doors and wait for passengers to clear.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚂</span>Railway crossings</h3><ul>
+    <li>Train coming, or lights/gate down: stop at least <span class="k">5 m</span> from the nearest rail or gate.</li>
+    <li>Never drive around, under or through a gate (3 points).</li>
+    <li><b>Don't change gears</b> while crossing the tracks.</li>
+    <li>Stalled on the tracks: get everyone out and well away, then call for help.</li>
+    <li>Buses stop at unprotected crossings; school buses stop at <b>all</b> crossings.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">↪️</span>Turns</h3><ul>
+    <li>Signal well ahead. Right turn: keep close to the right curb, end in the right lane.</li>
+    <li>Left turn: from the left-most lane into the left-most lane of the new road.</li>
+    <li><b>Right on red</b> is OK after a full stop, unless a sign prohibits it.</li>
+    <li><b>Left on red</b> is OK only from a one-way road onto a one-way road, after a full stop.</li>
+    <li><b>U-turns</b> are not allowed on a curve or hill, or near a railway crossing, bridge or tunnel where you can't see <span class="k">150 m</span> both ways.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">⏩</span>Passing</h3><ul>
+    <li>Pass on the <b>left</b>. Return only when you can see the passed vehicle's front in your inside mirror.</li>
+    <li>Passing on the right is allowed on multi-lane roads, or around a vehicle turning left when there's a clear lane. <b>Never on the shoulder.</b></li>
+    <li>No passing: solid line on your side, hills, curves, near intersections, railway crossings, or within 30 m of a PXO.</li>
+    <li>Being passed? Keep right and don't speed up.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🛣️</span>Highways &amp; freeways</h3><ul>
+    <li>Entering: use the acceleration lane to match traffic speed, signal, merge into a gap.</li>
+    <li>Exiting: signal early and slow down in the <b>deceleration lane</b>, not on the freeway.</li>
+    <li>Missed your exit? Go on to the next one. <b>Never back up</b> on a freeway.</li>
+    <li>Keep right except to pass. Slower traffic keeps right.</li>
+    <li>HOV lanes (diamond ◇): only vehicles with the posted number of occupants.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🔄</span>Roundabouts</h3><ul>
+    <li>Travel <b>counter-clockwise</b>. <span class="k">Yield to traffic already in the roundabout</span> (coming from your left).</li>
+    <li>Never stop inside the roundabout. Signal right before your exit.</li>
+    <li>Emergency vehicle coming? Exit first, then pull over.</li>
+    <li>Pedestrians: yield at the crosswalks before entering and after exiting.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🚲</span>Sharing the road</h3><ul>
+    <li>Cyclists: leave at least <span class="k">1 m</span> when passing. Check your blind spot before opening a door ("dooring" a cyclist = fine + points).</li>
+    <li>Large trucks have big <b>blind spots</b> ("no-zones"). If you can't see their mirrors, they can't see you. They make <b>wide right turns</b>.</li>
+    <li>Slow-moving vehicle (orange triangle with red border): max speed about 40 km/h. Be patient.</li>
+    <li>Motorcycles get a full lane width.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">⛰️</span>Parking on a hill</h3><ul>
+    <li><b>Downhill</b> (with or without a curb): wheels turned <span class="k">toward the curb/right</span>.</li>
+    <li><b>Uphill with a curb</b>: wheels turned <span class="k">away from the curb (left)</span>, roll back to touch it.</li>
+    <li><b>Uphill, no curb</b>: wheels turned <span class="k">right</span>.</li>
+    <li>Always set the parking brake; leave it in Park (or in gear for a manual).</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🅿️</span>Where you can't park</h3><ul>
+    <li>Within <span class="k">3 m</span> of a fire hydrant</li>
+    <li>Within <span class="k">9 m</span> of an intersection, or <span class="k">15 m</span> if it has lights</li>
+    <li>Within <span class="k">15 m</span> of a level railway crossing</li>
+    <li>On or within <span class="k">100 m</span> of a bridge</li>
+    <li>Within <span class="k">6 m</span> of a public entrance (hotel, theatre, hall)</li>
+    <li>On a curve or hill, or anywhere you can't be seen from <span class="k">125 m</span></li>
+    <li>Blocking a sidewalk, crosswalk, driveway or another vehicle</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🌧️</span>Night &amp; bad weather</h3><ul>
+    <li>Fog: <b>low beams</b>. High beams reflect back and blind you.</li>
+    <li>Rain: roads are slipperiest in the first few minutes. Watch for <b>hydroplaning</b>. If it happens, ease off the gas; don't brake hard.</li>
+    <li>Black ice is most likely on bridges, overpasses and in shaded spots.</li>
+    <li>Daytime running lights are <b>not</b> headlights. They don't light your tail lights.</li>
+    <li>Blinded by oncoming high beams: look toward the <b>right edge</b> of the road.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🆘</span>Emergencies</h3><ul>
+    <li><b>Skid:</b> ease off the gas and brake; <span class="k">steer where you want to go</span>.</li>
+    <li><b>ABS brakes:</b> press hard and hold; don't pump. <b>No ABS:</b> threshold brake or pump.</li>
+    <li><b>Brake failure:</b> pump the pedal, shift to a lower gear, apply the parking brake gradually.</li>
+    <li><b>Stuck gas pedal:</b> shift to <b>neutral</b>, brake, pull off the road.</li>
+    <li><b>Blowout:</b> grip the wheel firmly, ease off the gas, don't brake hard.</li>
+    <li><b>Wheels drop off the pavement:</b> grip the wheel, ease off the gas, steer back gently once slowed.</li>
+    <li><b>Car going into water:</b> undo your seatbelt, open the window, get out.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">💥</span>Collisions</h3><ul>
+    <li><b>Stay at the scene</b>. Leaving is 7 points and a criminal offence.</li>
+    <li>Call police if anyone is hurt, or damage is over <span class="k">$5,000</span>.</li>
+    <li>Otherwise exchange information (name, address, licence, plate, insurance) with the other driver.</li>
+    <li>Turn on hazard lights; set up warning signs or flares if safe.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🤚</span>Hand signals</h3><ul>
+    <li><b>Left turn:</b> left arm straight out</li>
+    <li><b>Right turn:</b> left arm bent <b>up</b> at the elbow (or right arm straight out)</li>
+    <li><b>Stop / slow:</b> left arm bent <b>down</b> at the elbow</li>
+  </ul></div>
+</div>
+</section>
+
+<!-- ============ LIGHTS & MARKINGS ============ -->
+<section id="lights">
+<div class="shead"><div class="big">🚦</div><div><h2>Traffic lights, signals &amp; pavement markings</h2><p>What each light means, plus pedestrian signals and lines on the road.</p></div></div>
+<div class="lights" id="lightGrid"></div>
+<div class="grid" style="margin-top:12px">
+  <div class="card"><h3><span class="e">🚸</span>Pedestrian signals</h3><ul>
+    <li><b>Walking figure:</b> pedestrians may cross.</li>
+    <li><b>Flashing or solid orange hand:</b> don't start crossing. Those already crossing should finish.</li>
+    <li><b>Countdown:</b> seconds left to finish crossing.</li>
+    <li><b>Intersection pedestrian signal (IPS):</b> a pedestrian push-button signal on a main road; side streets have stop signs.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🔌</span>Lights not working</h3><ul>
+    <li>Treat the intersection as an <span class="k">all-way stop</span>.</li>
+    <li>A police officer directing traffic overrides all signals and signs.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">〰️</span>Pavement markings</h3><ul>
+    <li><b>Yellow lines</b> separate traffic going in <span class="k">opposite</span> directions.</li>
+    <li><b>White lines</b> separate lanes going the <span class="k">same</span> direction.</li>
+    <li><b>Solid line</b> = don't cross or pass. <b>Broken line</b> = you may pass when safe.</li>
+    <li><b>Solid + broken:</b> you may pass only if the <b>broken</b> line is on your side.</li>
+    <li><b>Double solid yellow:</b> no passing either way.</li>
+    <li><b>Two-way left-turn lane:</b> middle lane edged with solid + broken yellow on both sides. Use it only to turn left, from either direction.</li>
+    <li><b>Diamond (◇):</b> reserved lane (HOV, bus, taxi or bicycle).</li>
+    <li><b>Stop line</b> (thick white across lane), <b>crosswalk</b> lines, turn <b>arrows</b>.</li>
+    <li><b>Yield line</b> ("shark teeth" ▽▽▽): yield here, e.g. at roundabouts.</li>
+  </ul></div>
+</div>
+</section>
+
+<!-- ============ SIGNS ============ -->
+<section id="signs">
+<div class="shead"><div class="big">🛑</div><div><h2>Road signs</h2><p>Learn the shape and colour first. They tell you the sign type before you read it.</p></div></div>
+<div class="legend">
+  <div class="card"><span id="lg1"></span><div><b>Octagon:</b> STOP only</div></div>
+  <div class="card"><span id="lg2"></span><div><b>Triangle:</b> YIELD only</div></div>
+  <div class="card"><span id="lg3"></span><div><b>Yellow diamond:</b> warning of a hazard ahead</div></div>
+  <div class="card"><span id="lg4"></span><div><b>Orange diamond:</b> temporary condition (construction)</div></div>
+  <div class="card"><span id="lg5"></span><div><b>Pentagon (yellow-green):</b> school zone</div></div>
+  <div class="card"><span id="lg6"></span><div><b>White rectangle/square:</b> regulatory (law). <b>Green circle</b> = allowed; <b>red circle + slash</b> = not allowed.</div></div>
+  <div class="card"><span id="lg7"></span><div><b>Green:</b> direction · <b>Blue:</b> services · <b>Brown:</b> tourism/recreation</div></div>
+  <div class="card"><span id="lg8"></span><div><b>X crossbuck:</b> railway crossing (treat it like a yield sign)</div></div>
+</div>
+<div class="filters" id="filters"></div>
+<div class="signs" id="signGrid"></div>
+</section>
+
+<!-- ============ DEMERITS ============ -->
+<section id="demerits">
+<div class="shead"><div class="big">⚠️</div><div><h2>Demerit points</h2><p>The complete table, and what happens when points add up.</p></div></div>
+<div class="card">
+<table>
+<tr><th>Pts</th><th>Offence</th></tr>
+<tr><td class="pts p7">7</td><td>Failing to remain at the scene of a collision<br>Failing to stop when signalled or asked by a police officer</td></tr>
+<tr><td class="pts p6">6</td><td>Careless driving<br>Racing<br>Speeding <b>40 km/h or more</b> over on roads posted <b>under 80 km/h</b><br>Speeding <b>50 km/h or more</b> over the limit<br>Failing to stop for a <b>school bus</b></td></tr>
+<tr><td class="pts p5">5</td><td>Bus driver failing to stop at an unprotected railway crossing</td></tr>
+<tr><td class="pts p4">4</td><td>Speeding <b>30–49 km/h</b> over the limit<br>Following too closely<br>Failing to stop at a <b>pedestrian crossover</b></td></tr>
+<tr><td class="pts p3">3</td><td>
+Speeding <b>16–29 km/h</b> over the limit<br>
+Driving through, around or under a railway crossing barrier<br>
+Using a hand-held phone or device (distracted driving)<br>
+Viewing a display screen unrelated to driving<br>
+Driving the wrong way on a divided road<br>
+Driving on a closed road<br>
+Failing to yield the right-of-way<br>
+Failing to obey a stop sign, traffic light, railway crossing signal, or traffic-control STOP/SLOW sign<br>
+Failing to obey a school crossing stop sign<br>
+Failing to obey a police officer's directions<br>
+Failing to report a collision to police<br>
+Failing to slow down and move over for a stopped emergency vehicle or tow truck<br>
+Improper passing<br>
+Improper driving where the road is divided into lanes<br>
+Going the wrong way on a one-way road<br>
+Crossing a divided road where there's no proper crossing<br>
+Crowding the driver's seat<br>
+Driving with a radar detector<br>
+Improper use of an HOV lane</td></tr>
+<tr><td class="pts p2">2</td><td>
+Improper right turn · Improper left turn · Prohibited turns<br>
+Failing to signal<br>
+Failing to obey signs<br>
+Failing to lower headlight beams<br>
+Unnecessary slow driving<br>
+Backing up on a highway<br>
+Towing people (on toboggans, bicycles, skis, etc.)<br>
+Failing to share the road<br>
+Failing to leave 1 m when passing a cyclist<br>
+Improper opening of a vehicle door (one MTO page lists 3)<br>
+Failing to stop at a pedestrian crossing<br>
+Driver not wearing a seatbelt<br>
+Driver failing to secure a child in a proper car seat or booster<br>
+Driver failing to ensure a passenger under 16 wears a seatbelt or sits in a seat with one</td></tr>
+</table>
+<p class="tip"><b>Speeding ladder:</b> 1–15 over = 0 points · 16–29 = <b>3</b> · 30–49 = <b>4</b> · 50+ = <b>6</b> (or 40+ on roads under 80 km/h).</p>
+</div>
+
+<div class="grid" style="margin-top:12px">
+  <div class="card"><h3><span class="e">🔰</span>Novice drivers (G1 / G2)</h3>
+  <table>
+    <tr><td><span class="k">2–5</span> points</td><td>Warning letter</td></tr>
+    <tr><td><span class="k">6–8</span> points</td><td>Second warning letter (may be called to an interview)</td></tr>
+    <tr><td><span class="k">9+</span> points</td><td>Licence suspended <span class="k">60 days</span>; points reduced to <span class="k">4</span> afterward</td></tr>
+    <tr><td>9 again</td><td>Suspended <span class="k">6 months</span></td></tr>
+  </table>
+  <p class="tip"><b>Escalating sanctions</b> for breaking a G1/G2 condition, or any conviction worth <b>4+ points</b>: 1st = <b>30-day</b> suspension · 2nd = <b>90-day</b> · 3rd = licence <b>cancelled</b> and you start over.</p>
+  </div>
+  <div class="card"><h3><span class="e">🪪</span>Fully licensed drivers</h3>
+  <table>
+    <tr><td><span class="k">6–8</span> points</td><td>Warning letter</td></tr>
+    <tr><td><span class="k">9–14</span> points</td><td>Second warning letter / possible interview</td></tr>
+    <tr><td><span class="k">15+</span> points</td><td>Licence suspended <span class="k">30 days</span>; points reduced to <span class="k">7</span> afterward</td></tr>
+    <tr><td>15 again</td><td>Suspended <span class="k">6 months</span></td></tr>
+  </table>
+  <p class="tip">Points stay <b>2 years</b> from the offence date. Not surrendering your licence when suspended can mean losing it for up to <b>2 years</b>.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============ PENALTIES ============ -->
+<section id="penalties">
+<div class="shead"><div class="big">🚔</div><div><h2>Other penalties</h2><p>Alcohol, drugs, phone use and stunt driving.</p></div></div>
+<div class="grid">
+  <div class="card"><h3><span class="e">🍺</span>Alcohol &amp; drugs</h3><ul>
+    <li><b>G1/G2, M1/M2, and all drivers 21 and under:</b> must be <span class="k">zero</span> alcohol and drugs. Any amount = immediate <span class="k">24-hour</span> roadside suspension; if convicted, a fine and at least a <span class="k">30-day</span> suspension.</li>
+    <li><b>Warn range 0.05–0.08</b> (fully licensed): 1st = <span class="k">3-day</span> suspension · 2nd = <span class="k">7 days</span> + alcohol education program · 3rd = <span class="k">30 days</span> + treatment + ignition interlock</li>
+    <li><b>Over 0.08, or refusing a test:</b> immediate <span class="k">90-day</span> suspension + <span class="k">7-day</span> vehicle impound + fees</li>
+    <li><b>Criminal conviction:</b> at least a <span class="k">1-year</span> suspension; later offences can mean a lifetime ban</li>
+    <li>Refusing a breath, blood or drug test counts the same as failing it</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">📵</span>Distracted driving (hand-held phone)</h3><ul>
+    <li><b>Fully licensed:</b> fine of <span class="k">$615–$1,000</span>, <span class="k">3 points</span>, <span class="k">3-day</span> suspension (1st offence)</li>
+    <li><b>Novice (G1/G2):</b> no demerit points; instead escalating suspensions: <span class="k">30 days</span> → <span class="k">90 days</span> → licence <b>cancelled</b></li>
+    <li>Hands-free use only. Phones may be handled only when you're safely parked off the road, or to call 911.</li>
+  </ul></div>
+  <div class="card"><h3><span class="e">🏎️</span>Stunt driving / racing</h3><ul>
+    <li>Speeding <span class="k">40+ km/h</span> over on roads posted under 80, <span class="k">50+</span> over on roads posted 80 or more, or <span class="k">150+ km/h</span> anywhere</li>
+    <li>Immediate roadside <span class="k">30-day</span> licence suspension + <span class="k">14-day</span> vehicle impound</li>
+    <li>If convicted: fine of <span class="k">$2,000–$10,000</span>, up to 6 months in jail, a longer suspension, and <span class="k">6 points</span></li>
+  </ul></div>
+  <div class="card"><h3><span class="e">⛔</span>Other ways to lose your licence</h3><ul>
+    <li>Driving while suspended: fines in the thousands, up to 6 months in jail, 6 months added to the suspension, 7-day impound</li>
+    <li>Driving without insurance: fine of <span class="k">$5,000–$50,000</span></li>
+    <li>Medical conditions (doctors must report ones that affect driving)</li>
+    <li>Unpaid court-ordered fines or family support</li>
+  </ul></div>
+</div>
+</section>
+
+<!-- ============ MEMORY ============ -->
+<section id="memory">
+<div class="shead"><div class="big">🧠</div><div><h2>Memory tricks</h2><p>Short hooks to lock in the numbers.</p></div></div>
+<div class="memo"><ul>
+  <li><b>"Twenty for the bus"</b>: stop <b>20 m</b> behind a school bus. <b>"Five for the train"</b>: stop <b>5 m</b> from the rail.</li>
+  <li><b>150 is the magic number</b>: fire truck following distance, dimming for oncoming cars, headlights-on visibility, U-turn sight distance.</li>
+  <li><b>60 = following</b>: dim your high beams within 60 m of the car ahead.</li>
+  <li><b>Hydrant 3, Intersection 9, Lights or Train 15</b> (parking distances in metres).</li>
+  <li><b>Novice 2 · 6 · 9</b> (letter · letter · 60-day suspension) vs <b>Full 6 · 9 · 15</b> (letter · letter · 30-day).</li>
+  <li><b>Points ladder 3-4-6-7:</b> 16+ over = 3 · 30+ = 4 · 50+ = 6 · leaving a crash or fleeing police = 7.</li>
+  <li><b>Shapes first:</b> octagon = stop, triangle = yield, diamond = warning, pentagon = school, X = railway crossing, white rectangle = law you must obey.</li>
+  <li><b>Colours:</b> Red = stop/forbidden · Yellow = warning · Orange = construction · Green = go/direction · Blue = services · Brown = tourism · Fluorescent yellow-green = school/pedestrians.</li>
+  <li><b>Yield to the right</b> at a 4-way stop tie or an uncontrolled intersection. <b>Yield to the left</b> when entering a roundabout.</li>
+  <li><b>Car seats 9 · 18 · 36:</b> rear-facing under 9 kg → forward-facing to 18 kg → booster to 36 kg (or until age 8 / 145 cm).</li>
+  <li><b>Flashing green = "go, you own the left"</b> (protected left turn). <b>Flashing red = stop sign.</b> <b>Flashing yellow = caution.</b></li>
+</ul></div>
+</section>
+
+</main>
+
+<div id="fc"><div class="box">
+  <div class="score" id="fcScore"></div>
+  <div id="fcSvg"></div>
+  <div class="q" id="fcAns"></div>
+  <div class="row" id="fcRow"></div>
+</div></div>
+
+<footer>Summarised from the Official MTO Driver's Handbook (ontario.ca, 2026). Fines and rules can change — confirm on ontario.ca before your test. Sign drawings are simplified illustrations.</footer>
+
+<script>
+// ---------- SVG helpers ----------
+const K='#111',R='#d71920',Y='#ffcc00',O='#f7941d',G='#00703c',B='#1b4d9c',F='#c9e600',W='#fff',BR='#6b4226',GR='#2ea043';
+const svg=i=>`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${i}</svg>`;
+const ic=(i,s=.6,dx=0,dy=0)=>`<g transform="translate(${50+dx} ${50+dy}) scale(${s}) translate(-50 -50)" fill="${K}" stroke="${K}" stroke-linecap="round" stroke-linejoin="round">${i}</g>`;
+const T=(s,y,sz=11,c=K,x=50,wt=800)=>`<text x="${x}" y="${y}" font-size="${sz}" font-weight="${wt}" fill="${c}" stroke="none" text-anchor="middle" font-family="Arial,Helvetica,sans-serif">${s}</text>`;
+const dia=(i,f=Y,s=.56,extra='')=>svg(`<rect x="18" y="18" width="64" height="64" rx="5" transform="rotate(45 50 50)" fill="${f}" stroke="${K}" stroke-width="2.5"/><rect x="21.5" y="21.5" width="57" height="57" rx="3" transform="rotate(45 50 50)" fill="none" stroke="${K}" stroke-width="1.6"/>${ic(i,s)}${extra}`);
+const box=(i,f=W,w=76,h=92,st=K)=>svg(`<rect x="${50-w/2}" y="${50-h/2}" width="${w}" height="${h}" rx="5" fill="${f}" stroke="${st}" stroke-width="2.5"/>${i}`);
+const sq=(i,f=W)=>box(i,f,86,86);
+const no=(i,s=.5)=>sq(ic(i,s)+`<circle cx="50" cy="50" r="33" fill="none" stroke="${R}" stroke-width="7"/><line x1="27" y1="27" x2="73" y2="73" stroke="${R}" stroke-width="7"/>`);
+const yes=(i,s=.5)=>sq(ic(i,s)+`<circle cx="50" cy="50" r="33" fill="none" stroke="${G}" stroke-width="7"/>`);
+const flipX=i=>`<g transform="translate(100 0) scale(-1 1)">${i}</g>`;
+const flipY=i=>`<g transform="translate(0 100) scale(1 -1)">${i}</g>`;
+const at=(i,x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})">${i}</g>`;
+const OCT='31,3 69,3 97,31 97,69 69,97 31,97 3,69 3,31';
+const stopSign=(word='STOP',sub='')=>svg(`<polygon points="${OCT}" fill="${R}"/><polygon points="${OCT}" fill="none" stroke="#fff" stroke-width="3" transform="translate(50 50) scale(.92) translate(-50 -50)"/>${T(word,sub?52:59,word.length>4?18:24,'#fff')}${sub?T(sub,72,15,'#fff'):''}`);
+
+// arrows
+const A={
+ up:`<path d="M50 90V42" stroke-width="13" fill="none"/><polygon points="26,46 50,12 74,46" stroke="none"/>`,
+ left:`<path d="M66 90V58Q66 42 50 42H40" stroke-width="13" fill="none"/><polygon points="42,18 8,42 42,66" stroke="none"/>`,
+ uturn:`<path d="M30 90V44A19 19 0 0 1 68 44V58" stroke-width="13" fill="none"/><polygon points="46,56 68,88 90,56" stroke="none"/>`,
+};
+A.right=flipX(A.left);
+// pictograms
+const P={
+ ped:`<circle cx="54" cy="12" r="9" stroke="none"/><path d="M52 27L47 57L34 90M47 57L64 88M50 35L32 52M50 35L68 50" stroke-width="9" fill="none"/>`,
+ bike:`<g fill="none" stroke-width="6"><circle cx="24" cy="66" r="18"/><circle cx="76" cy="66" r="18"/><path d="M24 66L40 38H68L76 66M40 38L52 66L68 38M52 66H24M36 30H48M66 38L62 26H72"/></g>`,
+ car:`<path d="M10 64V50L24 32H66L82 48H90V64Z" stroke="none"/><rect x="30" y="37" width="14" height="10" fill="${Y}" stroke="none"/><rect x="50" y="37" width="14" height="10" fill="${Y}" stroke="none"/><circle cx="28" cy="66" r="9" stroke="none"/><circle cx="72" cy="66" r="9" stroke="none"/>`,
+ bus:`<rect x="6" y="26" width="88" height="42" rx="6" stroke="none"/><g fill="#fff" stroke="none"><rect x="14" y="33" width="13" height="12"/><rect x="31" y="33" width="13" height="12"/><rect x="48" y="33" width="13" height="12"/><rect x="65" y="33" width="13" height="12"/></g><circle cx="26" cy="72" r="9" stroke="none"/><circle cx="74" cy="72" r="9" stroke="none"/>`,
+ truck:`<rect x="4" y="26" width="58" height="40" stroke="none"/><path d="M65 38H82L94 52V66H65Z" stroke="none"/><circle cx="22" cy="72" r="9" stroke="none"/><circle cx="80" cy="72" r="9" stroke="none"/>`,
+ deer:`<path d="M20 52Q24 42 50 42L66 38L70 24M66 38L82 42M26 50L22 86M34 52L38 86M56 46L56 86M62 44L70 86M70 24L62 12M70 24L80 12M70 24L74 16" stroke-width="7" fill="none"/><ellipse cx="42" cy="47" rx="22" ry="8" stroke="none"/>`,
+ child:`<circle cx="40" cy="20" r="9" stroke="none"/><path d="M40 33L38 58L28 86M38 58L52 84M39 40L24 54M39 40L56 50" stroke-width="9" fill="none"/><circle cx="70" cy="68" r="10" stroke="none"/>`,
+ worker:`<circle cx="36" cy="16" r="9" stroke="none"/><path d="M36 30L40 58L30 88M40 58L52 86M37 38L62 50M62 50L80 82" stroke-width="8" fill="none"/><path d="M70 90Q84 72 96 90Z" stroke="none"/>`,
+ flagger:`<circle cx="44" cy="14" r="9" stroke="none"/><path d="M44 28L44 58L34 88M44 58L56 88M44 36L66 26M66 26L66 6" stroke-width="8" fill="none"/><polygon points="66,6 90,12 66,20" stroke="none"/>`,
+ snow:`<path d="M10 64H66L86 52H60L50 38H34L28 52H10Z" stroke="none"/><path d="M8 76H72Q88 76 92 66" stroke-width="6" fill="none"/><circle cx="42" cy="26" r="8" stroke="none"/>`,
+ wheel:`<circle cx="44" cy="14" r="8" stroke="none"/><path d="M44 26V56H70L76 80" stroke-width="8" fill="none"/><path d="M44 38H64" stroke-width="7"/><circle cx="44" cy="68" r="20" fill="none" stroke-width="7"/>`,
+};
+const lightsIcon=`<rect x="32" y="4" width="36" height="92" rx="7" stroke="none"/><circle cx="50" cy="22" r="11" fill="${R}" stroke="none"/><circle cx="50" cy="50" r="11" fill="${Y}" stroke="none"/><circle cx="50" cy="78" r="11" fill="${GR}" stroke="none"/>`;
+const smallOct=`<polygon points="40,4 60,4 74,18 74,38 60,52 40,52 26,38 26,18" fill="${R}" stroke="none"/>`;
+const arrowBelow=`<path d="M50 94V70" stroke-width="10" fill="none"/><polygon points="36,72 50,56 64,72" stroke="none"/>`;
+
+// ---------- SIGN DATA ----------
+const S=[];
+const add=(c,n,m,s)=>S.push({c,n,m,s});
+// Regulatory
+add('reg','Stop','Come to a complete stop. Move only when the way is clear.',stopSign());
+add('reg','Yield','Slow down or stop if needed and give the right-of-way to traffic and pedestrians.',svg(`<polygon points="4,8 96,8 50,94" fill="${R}"/><polygon points="22,18 78,18 50,70" fill="#fff"/>`));
+add('reg','Railway crossing (crossbuck)','Railway crosses the road. Slow down, look both ways; stop if a train is coming.',svg(`<g transform="rotate(40 50 50)"><rect x="6" y="40" width="88" height="20" fill="#fff" stroke="${R}" stroke-width="4"/></g><g transform="rotate(-40 50 50)"><rect x="6" y="40" width="88" height="20" fill="#fff" stroke="${R}" stroke-width="4"/></g>`));
+add('reg','School zone','You are entering a school zone. Slow down and watch for children.',svg(`<polygon points="50,4 95,38 95,96 5,96 5,38" fill="${F}" stroke="${K}" stroke-width="2.5"/>${ic(P.child.replace(`<circle cx="70" cy="68" r="10" stroke="none"/>`,''),.45,-12,10)}${ic(P.child.replace(`<circle cx="70" cy="68" r="10" stroke="none"/>`,''),.38,12,14)}`));
+add('reg','School zone speed limit','Speed limit applies in the school zone when the lights are flashing or during posted times.',box(`<rect x="12" y="4" width="76" height="22" fill="${F}"/>${T('SCHOOL',20,12)}${T('MAXIMUM',40,10)}${T('40',72,32)}${T('km/h',88,10)}`));
+add('reg','Maximum speed','Speed limit in km/h under ideal conditions.',box(`${T('MAXIMUM',24,12)}${T('50',66,40)}${T('km/h',86,12)}`));
+add('reg','Community safety zone','Fines are increased in this zone. Slow down; extra care for pedestrians.',box(`${T('COMMUNITY',30,10)}${T('SAFETY',46,13)}${T('ZONE',62,13)}${T('FINES',78,9)}${T('INCREASED',88,8)}`));
+add('reg','No left turn','You may not turn left at this intersection.',no(A.left));
+add('reg','No right turn','You may not turn right at this intersection.',no(A.right));
+add('reg','No U-turn','You may not make a U-turn.',no(A.uturn));
+add('reg','No straight through','You must turn; going straight is not allowed.',no(A.up));
+add('reg','No right turn on red','You may not turn right when the light is red, even after stopping.',box(`${ic(A.right,.42,0,-14)}<circle cx="50" cy="36" r="24" fill="none" stroke="${R}" stroke-width="5"/><line x1="33" y1="19" x2="67" y2="53" stroke="${R}" stroke-width="5"/>${T('ON RED',82,14)}`));
+add('reg','Do not enter','Do not enter this road (usually the wrong end of a one-way road).',sq(`<circle cx="50" cy="50" r="34" fill="${R}"/><rect x="24" y="43" width="52" height="14" fill="#fff"/>`));
+add('reg','No bicycles','Bicycles are not allowed on this road.',no(P.bike,.46));
+add('reg','No pedestrians','Pedestrians are not allowed on this road.',no(P.ped,.5));
+add('reg','No heavy trucks','Heavy trucks are not allowed.',no(P.truck,.46));
+add('reg','No parking','No parking in the area between the signs (during posted times if shown).',sq(`${T('P',66,46)}<circle cx="50" cy="50" r="33" fill="none" stroke="${R}" stroke-width="7"/><line x1="27" y1="27" x2="73" y2="73" stroke="${R}" stroke-width="7"/>`));
+add('reg','No stopping','You may not stop your vehicle here, even briefly, during the posted times.',box(`<circle cx="50" cy="34" r="22" fill="none" stroke="${R}" stroke-width="6"/><line x1="35" y1="19" x2="65" y2="49" stroke="${R}" stroke-width="6"/><line x1="65" y1="19" x2="35" y2="49" stroke="${R}" stroke-width="6"/>${T('NO STOPPING',72,10)}${T('7AM–9AM',86,10)}`));
+add('reg','Parking permitted','Parking is allowed during the posted times / for the posted time limit.',box(`<circle cx="50" cy="32" r="22" fill="none" stroke="${G}" stroke-width="6"/>${T('P',44,30)}${T('1 HR',70,13)}${T('9AM–6PM',86,10)}`));
+add('reg','Accessible parking','Parking only for vehicles displaying a valid accessible parking permit.',box(`<rect x="22" y="10" width="56" height="50" fill="${B}"/>${ic(P.wheel.replaceAll(K,'#fff'),.42,0,-15).replace(`fill="${K}" stroke="${K}"`,'fill="#fff" stroke="#fff"')}${T('PERMIT',76,12)}${T('ONLY',89,12)}`));
+add('reg','Tow-away zone','Vehicles parked here will be towed away at the owner\'s cost.',box(`${T('P',40,30)}<circle cx="50" cy="30" r="20" fill="none" stroke="${R}" stroke-width="5"/><line x1="36" y1="16" x2="64" y2="44" stroke="${R}" stroke-width="5"/>${T('TOW-AWAY',70,11)}${T('ZONE',84,11)}`));
+add('reg','One way','Traffic flows only in the direction of the arrow.',svg(`<rect x="4" y="30" width="92" height="40" rx="4" fill="${K}"/><rect x="10" y="38" width="60" height="24" fill="#fff"/><polygon points="68,30 94,50 68,70" fill="#fff"/>${T('ONE WAY',55,11)}`));
+add('reg','Keep right','Keep to the right of the traffic island or median.',sq(ic(`<rect x="18" y="34" width="26" height="60" rx="13" stroke="none"/><path d="M34 6Q72 6 72 40V70" stroke-width="10" fill="none"/><polygon points="58,66 72,94 86,66" stroke="none"/>`,.62)));
+add('reg','Do not pass','You may not pass other vehicles on this stretch of road.',box(`${T('DO NOT',40,16)}${T('PASS',64,20)}`));
+add('reg','Passing permitted','You may pass when it is safe to do so.',box(`${T('PASSING',40,14)}${T('PERMITTED',62,12)}`));
+add('reg','Slower traffic keep right','On multi-lane roads, drive in the right lane if you are slower than other traffic.',box(`${T('SLOWER',28,13)}${T('TRAFFIC',46,13)}${T('KEEP',64,13)}${T('RIGHT',82,13)}`));
+add('reg','Keep right except to pass','Stay in the right lane unless you are passing.',box(`${T('KEEP',28,13)}${T('RIGHT',46,13)}${T('EXCEPT',64,12)}${T('TO PASS',82,12)}`));
+add('reg','Lane use — left lane must turn left','Drivers in the lane under the arrow must turn left.',box(`${ic(A.left,.5,0,-10)}${T('ONLY',86,14)}`));
+add('reg','Lane use — straight or right','The lane allows going straight or turning right only.',box(ic(`<path d="M44 92V20" stroke-width="10" fill="none"/><polygon points="28,24 44,2 60,24" stroke="none"/><path d="M44 64Q44 50 62 50H72" stroke-width="10" fill="none"/><polygon points="70,36 92,50 70,64" stroke="none"/>`,.68)));
+add('reg','Two-way left-turn lane','The centre lane is only for left turns, by drivers going in both directions.',box(ic(`<path d="M30 92V48Q30 34 18 34" stroke-width="9" fill="none"/><polygon points="22,22 4,34 22,46" stroke="none"/><path d="M70 8V52Q70 66 82 66" stroke-width="9" fill="none"/><polygon points="78,54 96,66 78,78" stroke="none"/>`,.6,0,-8)+T('ONLY',88,13)));
+add('reg','HOV lane','High Occupancy Vehicle lane: only vehicles with at least the posted number of people (e.g. 2+).',box(`<polygon points="50,8 72,30 50,52 28,30" fill="none" stroke="${K}" stroke-width="4"/>${T('HOV',38,11)}${T('2+',76,24)}${T('ONLY',91,10)}`));
+add('reg','Reserved bicycle lane','The lane is reserved for bicycles.',box(`<polygon points="50,6 64,20 50,34 36,20" fill="none" stroke="${K}" stroke-width="3"/>${ic(P.bike,.42,0,10)}${T('LANE',92,11)}`));
+add('reg','Reserved bus lane','The lane is reserved for buses (and sometimes taxis/bicycles) during posted times.',box(`<polygon points="50,6 64,20 50,34 36,20" fill="none" stroke="${K}" stroke-width="3"/>${T('BUS',56,18)}${T('ONLY',74,14)}${T('7–9AM',90,10)}`));
+add('reg','Pedestrian crossover','Pedestrian crossover. Stop and yield to pedestrians until they have completely crossed the road.',box(`${ic(`<path d="M10 10L90 90M90 10L10 90" stroke-width="7"/>`,.6,0,-14)}${ic(P.ped,.3,0,-14)}${T('STOP FOR',74,10)}${T('PEDESTRIANS',88,9)}`));
+add('reg','Stop for school bus','On this road, drivers in both directions must stop for a school bus with its signals flashing.',box(`${ic(P.bus,.55,0,-20)}${T('STOP',56,12)}${T('FOR SCHOOL BUS',68,8)}${T('WHEN SIGNALS',79,8)}${T('FLASHING',90,8)}`));
+add('reg','Stop here on red signal','Where to stop when the light is red.',box(`${T('STOP',24,13)}${T('HERE',40,13)}${T('ON RED',56,13)}${T('SIGNAL',72,11)}${ic(`<path d="M50 4V48" stroke-width="10" fill="none"/><polygon points="34,46 50,70 66,46" stroke="none"/>`,.26,0,36)}`));
+add('reg','Truck route','Trucks are allowed (or should use) this route.',yes(P.truck,.46));
+add('reg','Snowmobiles permitted','Snowmobiles may use this road.',yes(P.snow,.5));
+add('reg','Bilingual stop','Stop sign in bilingual (French and English) areas. Same meaning.',stopSign('STOP','ARRÊT'));
+
+// Warning
+add('warn','Curve ahead (right)','Road curves to the right ahead. Slow down.',dia(`<path d="M38 94V62Q38 42 58 30" stroke-width="12" fill="none"/><polygon points="48,14 84,14 70,44" stroke="none"/>`));
+add('warn','Sharp turn ahead','Sharp turn ahead (right). Slow down well before it.',dia(`<path d="M36 94V44H62" stroke-width="12" fill="none"/><polygon points="60,20 92,44 60,68" stroke="none"/>`));
+add('warn','Winding road','Series of curves ahead. Reduce speed.',dia(`<path d="M42 94V80Q42 66 56 60Q72 52 58 42Q44 32 52 22" stroke-width="10" fill="none"/><polygon points="38,26 58,2 70,30" stroke="none"/>`));
+add('warn','Intersection ahead','Crossroad ahead. Be ready to slow down or stop.',dia(`<path d="M50 6V94M6 50H94" stroke-width="13" fill="none"/>`));
+add('warn','Side road ahead','A side road joins from the right ahead. Watch for vehicles entering.',dia(`<path d="M44 6V94M44 46H94" stroke-width="13" fill="none"/>`));
+add('warn','T-intersection ahead','The road ends ahead. Prepare to turn left or right.',dia(`<path d="M6 32H94M50 32V94" stroke-width="13" fill="none"/>`));
+add('warn','Y-intersection ahead','The road splits ahead. Prepare to go left or right.',dia(`<path d="M50 94V56L24 10M50 56L76 10" stroke-width="13" fill="none"/>`));
+add('warn','Roundabout ahead','Roundabout ahead. Slow down, travel counter-clockwise, yield to traffic in it.',dia(`<path d="M50 22A28 28 0 0 1 78 50" stroke-width="9" fill="none"/><path d="M74 66A28 28 0 0 1 36 74" stroke-width="9" fill="none"/><path d="M24 62A28 28 0 0 1 34 27" stroke-width="9" fill="none"/><polygon points="78,36 90,56 66,54" stroke="none"/><polygon points="44,64 30,84 26,62" stroke="none"/><polygon points="22,32 42,20 40,42" stroke="none"/>`));
+add('warn','Traffic signals ahead','Traffic lights ahead. Be ready to stop.',dia(lightsIcon,Y,.52));
+add('warn','Stop sign ahead','Stop sign ahead. Slow down and prepare to stop.',dia(smallOct+arrowBelow,Y,.6));
+add('warn','Yield sign ahead','Yield sign ahead. Slow down and prepare to yield.',dia(`<polygon points="22,4 78,4 50,50" fill="${R}" stroke="none"/><polygon points="34,12 66,12 50,38" fill="#fff" stroke="none"/>`+arrowBelow,Y,.6));
+add('warn','Railway crossing ahead','Railway crossing ahead. Slow down; look and listen for trains.',dia(`<path d="M14 14L86 86M86 14L14 86" stroke-width="12" fill="none"/>`,Y,.6));
+add('warn','Merge','Two roads merge ahead into one. Adjust speed to merge safely.',dia(`<path d="M38 94V6" stroke-width="12" fill="none"/><path d="M80 94Q80 62 44 44" stroke-width="10" fill="none"/>`));
+add('warn','Right lane ends','The right lane ends ahead. Merge left with care.',dia(`<path d="M32 94V6" stroke-width="8" fill="none"/><path d="M72 94V62L54 40V6" stroke-width="8" fill="none"/><path d="M52 90V78M52 66V54" stroke-width="5"/>`));
+add('warn','Road narrows','The road narrows ahead on both sides.',dia(`<path d="M26 94V60L40 42V6M74 94V60L60 42V6" stroke-width="8" fill="none"/>`));
+add('warn','Narrow bridge','Narrow bridge ahead. Slow down; yield if needed.',dia(`<path d="M28 6V28L36 36V64L28 72V94M72 6V28L64 36V64L72 72V94" stroke-width="7" fill="none"/>`));
+add('warn','Divided highway begins','A median will separate traffic ahead. Keep right.',dia(`<path d="M40 94V64L22 42V6M60 94V64L78 42V6" stroke-width="8" fill="none"/><path d="M50 56L40 44V6H60V44Z" stroke="none"/>`));
+add('warn','Divided highway ends','The median ends. Two-way traffic ahead; keep right.',dia(flipY(`<path d="M40 94V64L22 42V6M60 94V64L78 42V6" stroke-width="8" fill="none"/><path d="M50 56L40 44V6H60V44Z" stroke="none"/>`)));
+add('warn','Two-way traffic ahead','Traffic travels in both directions ahead (e.g. at the end of a one-way road).',dia(`<path d="M32 90V32M68 10V68" stroke-width="10" fill="none"/><polygon points="18,36 32,10 46,36" stroke="none"/><polygon points="54,64 68,90 82,64" stroke="none"/>`));
+add('warn','Slippery when wet','Road is slippery when wet. Slow down; don\'t brake or steer suddenly.',dia(at(P.car,6,-6,.88)+`<path d="M20 84Q28 70 36 84T52 84M56 84Q64 70 72 84T88 84" stroke-width="5" fill="none"/>`));
+add('warn','Steep hill','Steep hill ahead. Slow down; you may need a lower gear.',dia(`<polygon points="6,92 94,92 94,40" stroke="none"/>${at(P.truck,24,34,.38).replace('<g ','<g ')}`.replace(`translate(24 34) scale(.38)`,`translate(26 44) rotate(-30) scale(.38)`)));
+add('warn','Bump / uneven road','Bump or rough road ahead. Slow down.',dia(`<path d="M6 74H28Q50 26 72 74H94" stroke-width="10" fill="none"/>`));
+add('warn','Pavement ends','Paved surface ends; gravel road ahead. Slow down.',dia(``,Y,.56,`${T('PAVEMENT',47,11)}${T('ENDS',62,11)}`));
+add('warn','Low clearance','Overpass height ahead (e.g. 3.8 m). Tall vehicles must not proceed.',dia(`<polygon points="32,4 68,4 50,24" stroke="none"/><polygon points="32,96 68,96 50,76" stroke="none"/>`,Y,.6,T('3.8 m',56,15)));
+add('warn','Deer crossing','Deer may cross ahead, especially at dawn and dusk.',dia(P.deer));
+add('warn','Snowmobile crossing','Snowmobiles may cross the road ahead.',dia(P.snow));
+add('warn','Bicycle crossing','Cyclists may cross the road ahead.',dia(P.bike,Y,.52));
+add('warn','Pedestrian crossing ahead','Watch for pedestrians crossing ahead.',dia(P.ped));
+add('warn','School bus stop ahead','School bus stop ahead. Watch for a stopped bus and children.',dia(P.bus,Y,.52));
+add('warn','Playground ahead','Children may be playing nearby. Slow down.',dia(P.child,F));
+add('warn','Truck entrance','Trucks may be entering the road ahead.',dia(P.truck,Y,.52));
+add('warn','Falling rock','Rocks may fall or have fallen onto the road.',dia(`<path d="M8 8L40 94" stroke-width="7" fill="none"/><circle cx="60" cy="34" r="9" stroke="none"/><circle cx="74" cy="58" r="11" stroke="none"/><circle cx="56" cy="80" r="10" stroke="none"/>`));
+add('warn','Share the road (cyclists)','Cyclists use this road. Leave at least 1 m when passing.',dia(P.bike,Y,.48,`<rect x="22" y="88" width="56" height="11" fill="${Y}" stroke="${K}" stroke-width="1"/>${T('SHARE THE ROAD',96,6)}`));
+add('warn','Advisory speed tab','Recommended safe speed through a curve or hazard (placed under a warning sign).',sq(`${T('40',56,34)}${T('km/h',80,13)}`,Y));
+add('warn','Chevron (sharp curve marker)','Sharp change in road direction. Follow the arrows around the curve.',box(`<polygon points="34,14 62,50 34,86 48,86 76,50 48,14" fill="${K}"/>`,Y,62,92));
+add('warn','Hazard marker','Obstruction close to the road. Stripes slope down toward the side you pass on.',box(`<clipPath id="hz"><rect x="30" y="4" width="40" height="92"/></clipPath><g clip-path="url(#hz)">${[...Array(9)].map((_,i)=>`<polygon points="30,${-14+i*16} 70,${6+i*16} 70,${14+i*16} 30,${-6+i*16}" fill="${K}"/>`).join('')}</g>`,Y,40,92));
+add('warn','Prepare to stop when flashing','Lights ahead may turn red. When the lights on the sign flash, prepare to stop.',box(`<circle cx="22" cy="18" r="8" fill="${O}"/><circle cx="78" cy="18" r="8" fill="${O}"/>${T('PREPARE',44,12)}${T('TO STOP',59,12)}${T('WHEN',73,10)}${T('FLASHING',86,10)}`,Y,86,92));
+add('warn','Slow-moving vehicle','Mounted on the back of farm machinery and other vehicles that go under ~40 km/h.',svg(`<polygon points="50,6 96,90 4,90" fill="${R}"/><polygon points="50,24 82,82 18,82" fill="${O}"/>`));
+
+// Temporary conditions
+add('temp','Construction ahead','Road work ahead. Slow down; watch for workers and equipment.',dia(P.worker,O));
+add('temp','Traffic control person ahead','A flagger is controlling traffic ahead. Be ready to stop.',dia(P.flagger,O));
+add('temp','Survey crew','Survey crew working on the road ahead.',dia(`<circle cx="30" cy="16" r="9" stroke="none"/><path d="M30 30V58L22 88M30 58L40 88M30 38L54 34" stroke-width="8" fill="none"/><path d="M70 30L58 90M70 30L82 90M70 30V90" stroke-width="5" fill="none"/><rect x="62" y="20" width="16" height="10" stroke="none"/>`,O));
+add('temp','Lane closed ahead','A lane is closed ahead. Merge into the open lane.',dia(`<path d="M30 94V6" stroke-width="8" fill="none"/><path d="M70 94V62L48 40V6" stroke-width="8" fill="none"/>`,O));
+add('temp','Lane shift / detour','Lanes shift ahead. Follow the new path.',dia(`<path d="M40 94V64L64 40V14" stroke-width="12" fill="none"/><polygon points="50,18 64,0 78,18" stroke="none"/>`,O));
+add('temp','Uneven lanes','Lanes are at different heights. Change lanes with care.',dia(`<path d="M10 76H48V58H90" stroke-width="8" fill="none"/><path d="M10 92H90" stroke-width="5"/>`,O));
+add('temp','Pavement drop-off','The edge of the pavement drops off. Don\'t drive onto the shoulder.',dia(`<path d="M10 40H56V74H90" stroke-width="8" fill="none"/>`,O));
+add('temp','Detour','Road is closed ahead. Follow the detour signs.',svg(`<rect x="4" y="26" width="92" height="48" rx="4" fill="${O}" stroke="${K}" stroke-width="2.5"/>${T('DETOUR',52,18)}<path d="M28 64H66" stroke="${K}" stroke-width="5"/><polygon points="66,58 78,64 66,70" fill="${K}"/>`));
+add('temp','Road closed','The road is closed. Do not enter; take another route.',svg(`<rect x="4" y="22" width="92" height="56" rx="4" fill="#fff" stroke="${K}" stroke-width="2.5"/>${T('ROAD',46,18)}${T('CLOSED',68,18)}`));
+add('temp','Traffic control person — STOP / SLOW','Obey the paddle: STOP means stop; SLOW means proceed slowly with caution.',svg(`<polygon points="${OCT}" fill="${R}" transform="translate(4 4) scale(.5)"/>${T('STOP',32,9,'#fff',29)}<rect x="56" y="10" width="34" height="34" rx="3" fill="${O}" stroke="${K}" stroke-width="2" transform="rotate(45 73 27)"/>${T('SLOW',30,8,K,73)}<path d="M29 54V96M73 54V96" stroke="${K}" stroke-width="4"/>`));
+add('temp','Lighted arrow board','Lane closed ahead. Move into the lane the arrow points to.',svg(`<rect x="4" y="26" width="92" height="48" rx="4" fill="${K}"/>${[18,30,42,54,66].map(x=>`<circle cx="${x}" cy="50" r="4" fill="${O}"/>`).join('')}${[[72,40],[78,45],[84,50],[78,55],[72,60]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="${O}"/>`).join('')}`));
+add('temp','Construction zone — fines doubled','Speeding fines are doubled in construction zones when workers are present.',box(`<rect x="12" y="4" width="76" height="30" fill="${O}"/>${T('CONSTRUCTION',18,9)}${T('ZONE',30,10)}${T('FINES',52,13)}${T('DOUBLED',68,13)}${T('WHEN WORKERS',82,8)}${T('PRESENT',92,8)}`));
+add('temp','Barricade','Road or lane closed. Do not go past the barricade.',svg(`<clipPath id="br"><rect x="6" y="36" width="88" height="22"/></clipPath><rect x="6" y="36" width="88" height="22" fill="#fff" stroke="${K}" stroke-width="2"/><g clip-path="url(#br)">${[...Array(8)].map((_,i)=>`<polygon points="${-4+i*16},58 ${6+i*16},36 ${14+i*16},36 ${4+i*16},58" fill="${O}"/>`).join('')}</g><path d="M18 58V92M82 58V92" stroke="${K}" stroke-width="5"/>`));
+
+// Information & direction
+add('info','Exit / interchange','Shows the exit number and where the exit leads. Green = direction/guide signs.',svg(`<rect x="4" y="18" width="92" height="64" rx="5" fill="${G}" stroke="#fff" stroke-width="2"/><rect x="58" y="6" width="34" height="16" rx="3" fill="${G}" stroke="#fff" stroke-width="2"/>${T('EXIT 33',18,9,'#fff',75)}${T('Toronto',48,15,'#fff')}${T('Downtown',66,13,'#fff')}`));
+add('info','Destination distances','Distance in kilometres to upcoming communities.',svg(`<rect x="4" y="18" width="92" height="64" rx="5" fill="${G}" stroke="#fff" stroke-width="2"/>${T('Barrie',40,12,'#fff',36)}${T('45',40,12,'#fff',80)}${T('Orillia',58,12,'#fff',36)}${T('84',58,12,'#fff',80)}${T('North Bay',76,11,'#fff',38)}${T('245',76,12,'#fff',80)}`));
+add('info','King\'s Highway route marker','Provincial highway number (crown shield). 400-series highways are controlled-access freeways.',svg(`<path d="M18 22H82V60Q82 84 50 96Q18 84 18 60Z" fill="#fff" stroke="${K}" stroke-width="3"/><path d="M30 8L38 18L50 6L62 18L70 8V22H30Z" fill="${K}"/>${T('401',66,24)}`));
+add('info','Hospital','Hospital nearby. Blue signs = services.',sq(`<rect x="14" y="14" width="72" height="72" fill="${B}"/>${T('H',72,54,'#fff')}`));
+add('info','Gas / food / lodging','Roadside services available at the next exit.',svg(`<rect x="4" y="18" width="92" height="64" rx="5" fill="${B}"/>${T('GAS',40,14,'#fff')}${T('FOOD',58,14,'#fff')}${T('LODGING',76,13,'#fff')}`));
+add('info','Tourism / attraction','Tourist or recreation destination. Brown signs = tourism, parks and recreation.',svg(`<rect x="4" y="22" width="92" height="56" rx="5" fill="${BR}"/>${T('Provincial',44,13,'#fff')}${T('Park',64,16,'#fff')}`));
+add('info','Emergency detour route (EDR)','Route to follow if the highway is closed due to an emergency.',svg(`<rect x="10" y="10" width="80" height="80" rx="6" fill="#fff" stroke="${G}" stroke-width="5"/><rect x="16" y="16" width="68" height="30" fill="${G}"/>${T('EDR',39,18,'#fff')}${T('401',76,24)}`));
+add('info','Airport','Route to an airport.',sq(`${ic(`<path d="M50 6Q56 6 56 18V40L92 58V66L56 56V78L68 88V94L50 88L32 94V88L44 78V56L8 66V58L44 40V18Q44 6 50 6Z" stroke="none"/>`,.68)}`));
+add('info','Bicycle route','Designated cycling route.',sq(`${ic(P.bike,.55,0,-8)}${T('ROUTE',88,11)}`,'#fff'));
+
+// Other signals / on-vehicle signs
+add('other','School bus stop arm','When a school bus extends this arm with red lights flashing, traffic must stop (20 m back).',svg(`<polygon points="${OCT}" fill="${R}" transform="translate(14 14) scale(.72)"/>${T('STOP',58,16,'#fff')}<circle cx="50" cy="12" r="5" fill="${R}" stroke="#fff"/><circle cx="50" cy="88" r="5" fill="${R}" stroke="#fff"/>`));
+add('other','School crossing guard sign','A crossing guard holding this sign: stop and wait until the guard and children have fully crossed.',svg(`<polygon points="${OCT}" fill="${R}" transform="translate(6 2) scale(.88)"/>${T('STOP',54,22,'#fff')}<rect x="47" y="90" width="6" height="10" fill="${K}"/>`));
+add('other','Emergency vehicle lights','Flashing red (or red &amp; blue) lights with siren: pull to the right and stop.',svg(`<rect x="10" y="40" width="80" height="20" rx="6" fill="${K}"/><rect x="14" y="44" width="34" height="12" rx="3" fill="${R}" class="blink"/><rect x="52" y="44" width="34" height="12" rx="3" fill="#2d6cdf"/>`));
+add('other','Tow truck / road-work vehicle lights','Flashing amber lights on a stopped tow truck: slow down and move over a lane. Blue = snowplow.',svg(`<rect x="10" y="40" width="80" height="20" rx="6" fill="${K}"/><rect x="14" y="44" width="72" height="12" rx="3" fill="${O}" class="blink"/>`));
+
+// ---------- RENDER SIGNS ----------
+const CAT={all:'All',reg:'Regulatory',warn:'Warning',temp:'Temporary / construction',info:'Information &amp; direction',other:'On vehicles / other'};
+const TAG={reg:'Regulatory',warn:'Warning',temp:'Temporary',info:'Info',other:'Other'};
+const grid=document.getElementById('signGrid'), filt=document.getElementById('filters');
+let cur='all';
+function renderSigns(){
+  grid.innerHTML=S.filter(s=>cur==='all'||s.c===cur).map(s=>`<div class="sign">${s.s}<div class="ans"><div><div class="n">${s.n}</div><div class="m">${s.m}</div></div></div><div class="tag">${TAG[s.c]}</div></div>`).join('');
+}
+filt.innerHTML=Object.entries(CAT).map(([k,v])=>`<button data-c="${k}" class="${k==='all'?'on':''}">${v} (${k==='all'?S.length:S.filter(s=>s.c===k).length})</button>`).join('');
+filt.onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.c;filt.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));renderSigns();};
+renderSigns();
+// legend
+const L=[stopSign(),S[1].s,dia(''),dia('',O),S[3].s,no(''),svg(`<rect x="4" y="8" width="44" height="40" rx="4" fill="${G}"/><rect x="52" y="8" width="44" height="40" rx="4" fill="${B}"/><rect x="28" y="54" width="44" height="40" rx="4" fill="${BR}"/>`),S[2].s];
+L.forEach((s,i)=>document.getElementById('lg'+(i+1)).innerHTML=s);
+
+// ---------- TRAFFIC LIGHTS ----------
+const head=(r,y,g,extra='')=>`<svg viewBox="0 0 42 100"><rect x="2" y="2" width="38" height="96" rx="8" fill="#222"/><circle cx="21" cy="20" r="12" fill="${r||'#444'}"/><circle cx="21" cy="50" r="12" fill="${y||'#444'}"/><circle cx="21" cy="80" r="12" fill="${g||'#444'}"/>${extra}</svg>`;
+const arrowG=`<path d="M28 80H13M18 74L12 80L18 86" stroke="#7CFC8A" stroke-width="4" fill="none"/>`;
+const LIGHTS=[
+ [head(R),'Red','Stop. You may turn right after a full stop (unless a sign says no), or left from a one-way onto a one-way.'],
+ [head(0,Y),'Yellow (amber)','Stop if you safely can; otherwise go through with caution.'],
+ [head(0,0,GR),'Green','Go if the way is clear. Yield to pedestrians and to oncoming traffic when turning left.'],
+ [head(0,0,0,`<circle cx="21" cy="80" r="12" fill="${GR}" class="blink"/>`),'Flashing green','Advance (protected) left turn. You may turn left, go straight, or turn right. Oncoming traffic has a red.'],
+ [head(R,0,0,`<circle cx="21" cy="80" r="12" fill="#222"/>${arrowG}`),'Green arrow (with red)','You may move only in the direction of the arrow. Fully protected left turn.'],
+ [head(0,0,0,`<circle cx="21" cy="50" r="12" fill="${Y}"/><path d="M28 50H13M18 44L12 50L18 56" stroke="#222" stroke-width="4" fill="none"/>`),'Yellow arrow','The protected turn is ending. Stop if you can; finish the turn if you\'re already in the intersection.'],
+ [head(0,0,0,`<circle cx="21" cy="20" r="12" fill="${R}" class="blink"/>`),'Flashing red','Treat it as a stop sign: stop fully, then go when it\'s safe.'],
+ [head(0,0,0,`<circle cx="21" cy="50" r="12" fill="${Y}" class="blink"/>`),'Flashing yellow','Drive with caution.'],
+ [head(R,0,0,`<rect x="17" y="66" width="8" height="26" rx="2" fill="#fff"/>`),'White vertical bar (transit)','Transit priority signal: only buses/streetcars may go. Everyone else obeys the regular lights.'],
+];
+document.getElementById('lightGrid').innerHTML=LIGHTS.map(([s,n,m])=>`<div class="card light">${s}<div><h3>${n}</h3><div class="ans">${m}</div></div></div>`).join('');
+
+// ---------- MODE + TOPICS ----------
+const mS=document.getElementById('mStudy'),mQ=document.getElementById('mQuiz');
+function setMode(q){document.body.classList.toggle('quiz',q);mS.setAttribute('aria-pressed',!q);mQ.setAttribute('aria-pressed',q);document.querySelectorAll('.shown,.open').forEach(e=>e.classList.remove('shown','open'));}
+mS.onclick=()=>setMode(false);mQ.onclick=()=>setMode(true);
+document.addEventListener('click',e=>{
+  if(!document.body.classList.contains('quiz'))return;
+  const k=e.target.closest('.k');if(k){k.classList.toggle('shown');return;}
+  const c=e.target.closest('.sign,.light');if(c)c.classList.toggle('open');
+});
+const chips=document.getElementById('chips');
+chips.onclick=e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  const t=b.dataset.t;
+  chips.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  document.querySelectorAll('main>section').forEach(sec=>sec.hidden=!(t==='all'||sec.id===t));
+  window.scrollTo({top:document.querySelector('main').offsetTop-document.querySelector('.bar').offsetHeight,behavior:'smooth'});
+};
+
+// ---------- FLASHCARDS ----------
+const fc=document.getElementById('fc'),fcSvg=document.getElementById('fcSvg'),fcAns=document.getElementById('fcAns'),fcRow=document.getElementById('fcRow'),fcScore=document.getElementById('fcScore');
+let deck=[],idx=0,right=0,wrong=0,missed=[];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+function startDeck(list){deck=shuffle(list.slice());idx=0;right=0;wrong=0;missed=[];show();}
+function show(){
+  if(idx>=deck.length){
+    fcSvg.innerHTML='';fcScore.textContent='';
+    fcAns.innerHTML=`<h2 style="margin:0">Done! ${right} / ${deck.length}</h2><p>${missed.length?`You missed ${missed.length} sign(s).`:'Perfect score 🎉'}</p>`;
+    fcRow.innerHTML=(missed.length?`<button class="pri" id="rm">Retry missed</button>`:'')+`<button id="ra">Restart all</button><button id="cl">Close</button>`;
+    if(missed.length)document.getElementById('rm').onclick=()=>startDeck(missed);
+    document.getElementById('ra').onclick=()=>startDeck(S);
+    document.getElementById('cl').onclick=()=>fc.classList.remove('open');
+    return;
+  }
+  const s=deck[idx];
+  fcScore.textContent=`Card ${idx+1} of ${deck.length} · ✅ ${right} · ❌ ${wrong}`;
+  fcSvg.innerHTML=s.s;
+  fcAns.innerHTML='<p style="color:var(--mute)">What does this sign mean?</p>';
+  fcRow.innerHTML=`<button class="pri" id="rv">Show answer</button><button id="cl">Close</button>`;
+  document.getElementById('rv').onclick=()=>{
+    fcAns.innerHTML=`<b>${s.n}</b><br><span style="color:var(--mute)">${s.m}</span>`;
+    fcRow.innerHTML=`<button class="pri" id="ok">✅ Got it</button><button id="no">❌ Missed</button>`;
+    document.getElementById('ok').onclick=()=>{right++;idx++;show();};
+    document.getElementById('no').onclick=()=>{wrong++;missed.push(s);idx++;show();};
+  };
+  document.getElementById('cl').onclick=()=>fc.classList.remove('open');
+}
+document.getElementById('fabBtn').onclick=()=>document.getElementById('fcBtn').click();
+document.getElementById('fcBtn').onclick=()=>{fc.classList.add('open');startDeck(cur==='all'?S:S.filter(s=>s.c===cur));};
+fc.onclick=e=>{if(e.target===fc)fc.classList.remove('open');};
+</script>
+</body>
+</html>
