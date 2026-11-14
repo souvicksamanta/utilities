@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discover Canada Quick Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: sticky toolbar over a dense grid of fact cards, a key-dates rail in History */
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --ink: #1b1f2a;
+  --muted: #5b6270;
+  --line: #dde0e6;
+  --accent: #c8102e;
+  --accent-soft: #fbe9ec;
+  --good: #1d7f55;
+  --good-soft: #e3f3eb;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161b; --card: #1d2027; --ink: #eceef2; --muted: #a2a8b4; --line: #2f333d;
+    --accent: #ff5a6e; --accent-soft: #3a1d23; --good: #4cc78f; --good-soft: #17322a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161b; --card: #1d2027; --ink: #eceef2; --muted: #a2a8b4; --line: #2f333d;
+  --accent: #ff5a6e; --accent-soft: #3a1d23; --good: #4cc78f; --good-soft: #17322a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.45 var(--body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+header.top { padding: 36px 0 18px; display: grid; gap: 10px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+h1 { font: 800 clamp(30px, 5vw, 46px)/1.05 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 68ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.pill { font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+.pill b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 520px; }
+button, .chip { font: 600 15px var(--body); cursor: pointer; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 6px 13px; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip .n { opacity: .6; font-variant-numeric: tabular-nums; margin-left: 4px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; padding: 6px 14px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 15px; color: var(--muted); cursor: pointer; }
+.progress { height: 4px; background: var(--line); }
+.progress i { display: block; height: 100%; width: 0; background: var(--good); transition: width .3s; }
+
+main { padding: 22px 0 60px; display: grid; gap: 34px; }
+section h2 { font: 800 24px/1.1 var(--display); margin: 0 0 4px; display: flex; gap: 10px; align-items: baseline; text-wrap: balance; }
+section h2 small { font: 600 14px var(--body); color: var(--muted); }
+section .sub { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px; display: grid; gap: 6px; align-content: start; position: relative; }
+.card.known { border-color: var(--good); background: linear-gradient(var(--good-soft), var(--card) 60%); }
+.card .q { font-weight: 700; padding-right: 30px; }
+.card .a { color: var(--ink); }
+.card .a strong { color: var(--accent); }
+.card .hook { font-size: 14.5px; background: var(--accent-soft); border-radius: 8px; padding: 6px 9px; }
+.card .hook b { color: var(--accent); }
+.star { position: absolute; top: 9px; right: 9px; width: 30px; height: 30px; padding: 0; border-radius: 50%; display: grid; place-items: center; font-size: 16px; color: var(--muted); }
+.card.known .star { background: var(--good); border-color: var(--good); color: #fff; }
+
+.quiz .card .ans { position: relative; cursor: pointer; border-radius: 8px; }
+.quiz .card:not(.open) .ans > * { filter: blur(7px); user-select: none; }
+.quiz .card:not(.open) .ans::after { content: "Tap to reveal"; position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: 14px; color: var(--accent); }
+.ans { display: grid; gap: 6px; }
+
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0 18px; }
+.timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 15.5px; }
+.timeline .y { font: 800 17px var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.mine { background: var(--card); border: 2px solid var(--accent); border-radius: 14px; padding: 16px 18px; }
+.mine .fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 16px; margin-top: 10px; }
+.mine label { display: grid; gap: 3px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.mine input { font: 16px var(--body); padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.empty { color: var(--muted); padding: 20px 0; }
+footer { color: var(--muted); font-size: 14px; padding-bottom: 40px; }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { body { font-size: 16px; } .timeline li { grid-template-columns: 64px 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="-1 -1.05 2 1.7" aria-hidden="true"><polygon fill="#c8102e" points="0,-1 .12,-.75 .28,-.82 .22,-.4 .45,-.62 .5,-.5 .75,-.55 .68,-.3 .85,-.2 .5,.05 .58,.22 .05,.15 .05,.55 -.05,.55 -.05,.15 -.58,.22 -.5,.05 -.85,-.2 -.68,-.3 -.75,-.55 -.5,-.5 -.45,-.62 -.22,-.4 -.28,-.82 -.12,-.75"/></svg>
+      <h1>Discover Canada Quick Cards</h1>
+    </div>
+    <p class="lede">The most-tested facts from <em>Discover Canada</em>, the official citizenship study guide, on short cards. Read them in Study mode first. Then switch to Quiz mode, try each card in your head, and tap to check. Press ★ on the cards you know.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="chips" id="chips" role="group" aria-label="Topic"></div>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Mode">
+        <button id="mStudy" aria-pressed="true">Study</button>
+        <button id="mQuiz" aria-pressed="false">Quiz</button>
+      </div>
+      <button id="shuffle">Shuffle</button>
+      <label class="check"><input type="checkbox" id="hideKnown"> Hide starred</label>
+    </div>
+  </div>
+  <div class="progress"><i id="prog"></i></div>
+</div>
+
+<div class="wrap">
+  <main id="main"></main>
+  <footer>
+    Source: <a href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html">Discover Canada: The Rights and Responsibilities of Citizenship</a>, Immigration, Refugees and Citizenship Canada. The test can also ask about current office-holders, so check the names in the “Look these up” box on canada.ca before your test.
+  </footer>
+</div>
+
+<script>
+const TOPICS = [
+  ["rights", "Rights & Responsibilities", "Where your rights come from and what citizens must do."],
+  ["people", "Who We Are", "Founding peoples, Indigenous peoples, French and English Canada."],
+  ["history", "History", "Exploration to Confederation to the modern country."],
+  ["gov", "Government & Elections", "How Canada is governed and how you vote."],
+  ["justice", "Justice", "Courts, police and the rule of law."],
+  ["symbols", "Symbols & Holidays", "Flag, anthem, honours and national days."],
+  ["geo", "Regions, Capitals & Economy", "Five regions, 13 capitals and what each place is known for."]
+];
+
+// [topic, prompt, answer (HTML), memory hook (optional)]
+const CARDS = [
+  // Rights & responsibilities
+  ["rights","Oldest document behind Canadian freedoms?","<strong>Magna Carta</strong>, the Great Charter of Freedoms, signed in England in <strong>1215</strong>.","1215: freedom's “first draft”."],
+  ["rights","When was the Charter of Rights and Freedoms added to the Constitution?","<strong>1982</strong>, when the Constitution was brought home (patriated) from Britain.","82 = Charter; 67 = Confederation."],
+  ["rights","Fundamental freedoms in the Charter?","Freedom of <strong>conscience and religion</strong>; of <strong>thought, belief, opinion and expression</strong> (including speech and the press); of <strong>peaceful assembly</strong>; and of <strong>association</strong>."],
+  ["rights","Mobility rights?","You can <strong>live and work anywhere in Canada</strong>, enter and leave the country freely, and apply for a passport."],
+  ["rights","Other rights the Charter protects?","Aboriginal peoples' rights, official language rights, minority language education rights, and <strong>multiculturalism</strong>."],
+  ["rights","What is habeas corpus?","The right to challenge unlawful detention by the state. It comes from English common law."],
+  ["rights","Are men and women equal under Canadian law?","<strong>Yes.</strong> Canada's openness and generosity do not extend to barbaric cultural practices such as spousal abuse, “honour killings” or forced marriage."],
+  ["rights","The responsibilities of citizenship?","1. <strong>Obey the law</strong><br>2. <strong>Take responsibility</strong> for yourself and your family<br>3. <strong>Serve on a jury</strong> when called<br>4. <strong>Vote</strong> in elections<br>5. <strong>Help others</strong> in the community<br>6. <strong>Protect</strong> our heritage and environment","Six duties: Law, Self, Jury, Vote, Help, Heritage."],
+  ["rights","Is military service compulsory in Canada?","<strong>No.</strong> Serving in the Canadian Forces, the reserves or the Coast Guard is a noble way to contribute, but it is voluntary."],
+  ["rights","What does the citizenship oath promise loyalty to?","The <strong>Sovereign</strong> (King Charles III), who personifies Canada. You also promise to obey Canada's laws and fulfil your duties as a citizen."],
+
+  // Who we are
+  ["people","Canada's three founding peoples?","<strong>Aboriginal</strong> (Indigenous), <strong>French</strong> and <strong>British</strong>."],
+  ["people","The three groups of Indigenous peoples?","<strong>First Nations</strong>, <strong>Inuit</strong> and <strong>Métis</strong>.","F-I-M: First Nations, Inuit, Métis."],
+  ["people","What does “Inuit” mean?","<strong>“The people”</strong> in Inuktitut. Inuit live in small communities across the Arctic."],
+  ["people","Who are the Métis?","People of mixed <strong>Indigenous and European</strong> ancestry. Most live in the Prairie provinces."],
+  ["people","Canada's two official languages?","<strong>English and French</strong>, equal in Parliament and federal services (Official Languages Act, <strong>1969</strong>)."],
+  ["people","Who are the Acadians?","Descendants of <strong>French colonists</strong> who settled in the Maritimes from <strong>1604</strong>."],
+  ["people","What was the Great Upheaval?","The deportation of more than two-thirds of the Acadians from their homeland, <strong>1755–1763</strong>."],
+  ["people","What did the House of Commons recognize in 2006?","That the <strong>Québécois form a nation within a united Canada</strong>."],
+  ["people","Who were the Loyalists?","Colonists who stayed loyal to the Crown and moved to Canada after the American Revolution (1776)."],
+  ["people","What is Canadian multiculturalism?","A society that welcomes people of many cultures and backgrounds while sharing common values and laws."],
+
+  // History
+  ["history","First Europeans to reach Canada?","<strong>Vikings</strong> from Iceland, about 1,000 years ago, at <strong>L'Anse aux Meadows</strong>, Newfoundland."],
+  ["history","Who mapped Canada's Atlantic shore in 1497?","<strong>John Cabot</strong>, an Italian sailing for England."],
+  ["history","Who claimed land for France (1534–1542)?","<strong>Jacques Cartier</strong>. He heard the Iroquoian word <strong>“kanata”</strong> (village), which became “Canada”.","Cartier → kanata → Canada."],
+  ["history","First European settlement north of Florida?","Founded in <strong>1604</strong> by Pierre de Monts and <strong>Samuel de Champlain</strong>, first on St. Croix Island, then at Port-Royal (Acadia)."],
+  ["history","Who founded Quebec City, and when?","<strong>Samuel de Champlain</strong>, in <strong>1608</strong>."],
+  ["history","What was the Hudson's Bay Company?","A fur-trading company the British King granted in <strong>1670</strong>, controlling trade in the lands draining into Hudson Bay."],
+  ["history","Battle of the Plains of Abraham?","In <strong>1759</strong> the British (General Wolfe) defeated the French (Marquis de Montcalm) at Quebec City. Both generals were killed.","1759: Wolfe vs. Montcalm, end of New France."],
+  ["history","What did the Quebec Act of 1774 do?","It allowed <strong>religious freedom for Catholics</strong>, let them hold public office, and kept French civil law."],
+  ["history","What did the Constitutional Act of 1791 do?","Split the Province of Quebec into <strong>Upper Canada</strong> (later Ontario) and <strong>Lower Canada</strong> (later Quebec), with elected assemblies."],
+  ["history","Who moved Upper Canada toward abolishing slavery?","Lieutenant Governor <strong>John Graves Simcoe</strong>, in <strong>1793</strong>. Britain abolished slavery across the Empire in 1833."],
+  ["history","What was the Underground Railroad?","A network that helped enslaved people escape from the U.S. to freedom in Canada."],
+  ["history","The War of 1812?","The U.S. invaded Canada and was <strong>defeated</strong>. Heroes: <strong>Sir Isaac Brock</strong>, Shawnee chief <strong>Tecumseh</strong>, <strong>Laura Secord</strong> (walked 30 km to warn of an attack), <strong>Charles de Salaberry</strong>.","1812: the invasion that made Canada."],
+  ["history","Act of Union, 1840?","Upper and Lower Canada were joined as the <strong>Province of Canada</strong>."],
+  ["history","What is responsible government?","Ministers must have the confidence of the elected assembly. <strong>Nova Scotia</strong> was first (1847–48). <strong>Louis-Hippolyte La Fontaine</strong> led the first responsible government in the Canadas."],
+  ["history","When was Confederation?","<strong>July 1, 1867</strong>. The British North America Act created the <strong>Dominion of Canada</strong>. July 1 is now Canada Day.","18-67: “Canada is born in sixty-seven.”"],
+  ["history","The four original provinces?","<strong>Ontario, Quebec, Nova Scotia, New Brunswick</strong>.","“Old Quebec Needs Nova Scotia”: ON, QC, NB, NS."],
+  ["history","Who were the Fathers of Confederation?","The leaders who worked together to create Canada (1864–1867), including <strong>Sir John A. Macdonald</strong> and <strong>Sir George-Étienne Cartier</strong>."],
+  ["history","Canada's first Prime Minister?","<strong>Sir John A. Macdonald</strong>. His birthday, January 11, is Sir John A. Macdonald Day."],
+  ["history","Who was Louis Riel?","A <strong>Métis</strong> leader. He led the Red River uprising (1869) that led to <strong>Manitoba</strong> joining in 1870. He was executed for high treason in 1885."],
+  ["history","When was the North West Mounted Police created?","<strong>1873</strong>, to keep peace in the West. It later became the <strong>RCMP</strong>."],
+  ["history","When was the Canadian Pacific Railway finished?","<strong>1885</strong>, joining east to west, built largely by European and <strong>Chinese</strong> labour.","Last spike, 1885."],
+  ["history","First French-Canadian Prime Minister after Confederation?","<strong>Sir Wilfrid Laurier</strong> (1896–1911)."],
+  ["history","The Battle of Vimy Ridge?","In <strong>April 1917</strong> Canadian troops captured the ridge in the First World War, a source of national pride."],
+  ["history","Who wrote “In Flanders Fields”?","Lieutenant-Colonel <strong>John McCrae</strong>, a Canadian army doctor, in 1915. It is recited on Remembrance Day."],
+  ["history","When did women get the vote?","<strong>Manitoba</strong> was first, in <strong>1916</strong>. Most women got the federal vote in <strong>1918</strong>. Agnes Macphail became the first woman MP in 1921."],
+  ["history","Canada on D-Day, June 6, 1944?","Canadians captured <strong>Juno Beach</strong> in Normandy. Canada also helped liberate the <strong>Netherlands</strong> (1944–45)."],
+  ["history","The Quiet Revolution?","A period of rapid change in <strong>Quebec</strong> in the 1960s."],
+
+  // Government
+  ["gov","Canada's three key features of government?","A <strong>federal state</strong>, a <strong>parliamentary democracy</strong> and a <strong>constitutional monarchy</strong>.","F-P-C: Federal, Parliamentary, Constitutional."],
+  ["gov","Who is Head of State?","The <strong>Sovereign</strong>, <strong>King Charles III</strong>."],
+  ["gov","Who represents the Sovereign?","The <strong>Governor General</strong> federally, and a <strong>Lieutenant Governor</strong> in each province. Territories have <strong>Commissioners</strong>, who represent the federal government."],
+  ["gov","Who is Head of Government?","The <strong>Prime Minister</strong>, who chooses the Cabinet ministers."],
+  ["gov","The three parts of Parliament?","The <strong>Sovereign</strong>, the <strong>Senate</strong> and the <strong>House of Commons</strong>.","King + Senate + Commons = Parliament."],
+  ["gov","How do people become Senators?","They are <strong>appointed</strong> by the Governor General on the Prime Minister's advice, and serve until age <strong>75</strong>."],
+  ["gov","How do people become Members of Parliament?","They are <strong>elected</strong> by the voters in their electoral district (riding)."],
+  ["gov","The three levels of government?","<strong>Federal</strong>, <strong>provincial/territorial</strong> and <strong>municipal</strong> (local)."],
+  ["gov","What does the federal government handle?","National defence, foreign policy, citizenship, currency, criminal law, banking, postal service, Indigenous affairs."],
+  ["gov","What do provinces handle?","Education, health care, natural resources, highways, property and civil rights. Agriculture and immigration are shared with Ottawa."],
+  ["gov","What do municipal governments handle?","Local policing, firefighting, snow removal, recycling, public transit, local land use."],
+  ["gov","How does a bill become law?","It passes <strong>three readings</strong> in the House of Commons and the Senate, then receives <strong>Royal Assent</strong> from the Governor General."],
+  ["gov","Who can vote in a federal election?","<strong>Canadian citizens</strong> who are at least <strong>18 years old</strong> on election day and on the voters' list."],
+  ["gov","When are federal elections held?","On the <strong>third Monday in October</strong>, every four years after the last general election, unless an election is called earlier."],
+  ["gov","Is your vote secret?","<strong>Yes</strong>, voting is by <strong>secret ballot</strong>. No one can make you tell how you voted."],
+  ["gov","Which party forms the government?","The party with the <strong>most elected seats</strong>. Its leader becomes Prime Minister. The second-largest party usually forms the <strong>Official Opposition</strong>."],
+  ["gov","Majority vs. minority government?","Majority: the governing party holds at least half the seats in the House of Commons. Minority: fewer than half."],
+  ["gov","What must a government keep to stay in power?","The <strong>confidence of the House of Commons</strong>, a majority of the elected MPs."],
+
+  // Justice
+  ["justice","Canada's highest court?","The <strong>Supreme Court of Canada</strong>."],
+  ["justice","Where do Canada's laws come from?","Parliament and provincial legislatures, <strong>English common law</strong>, the <strong>civil code of France</strong> (in Quebec) and the unwritten constitution inherited from Britain."],
+  ["justice","Presumption of innocence?","Everyone is <strong>innocent until proven guilty</strong>."],
+  ["justice","What is due process?","The government must respect all of a person's legal rights."],
+  ["justice","What is the rule of law?","Everyone, including police, judges and government, must obey the law."],
+  ["justice","What does the RCMP do?","It enforces federal laws everywhere in Canada, and is the provincial police in all provinces and territories <strong>except Ontario and Quebec</strong>."],
+  ["justice","Can you question the police?","<strong>Yes.</strong> You can ask for the officer's name and badge number, and report concerns to the police department."],
+
+  // Symbols
+  ["symbols","When was the Maple Leaf flag first raised?","<strong>1965</strong>. Red and white became Canada's official colours in 1921.","Flag '65, Charter '82."],
+  ["symbols","Canada's national anthem?","<strong>“O Canada”</strong>, proclaimed the national anthem in <strong>1980</strong> and first sung in Quebec City in 1880.","Sung 1880, official 1980: a 100-year wait."],
+  ["symbols","Canada's royal anthem?","<strong>“God Save the King”</strong>."],
+  ["symbols","What is the Crown a symbol of?","Government, including Parliament, the courts, police and the Canadian Forces."],
+  ["symbols","Canada's highest honour for bravery?","The <strong>Victoria Cross</strong> (V.C.)."],
+  ["symbols","National winter sport? Official summer sport?","Winter: <strong>hockey</strong>. Summer: <strong>lacrosse</strong>, first played by Indigenous peoples."],
+  ["symbols","Why is the beaver a symbol of Canada?","It was central to the <strong>fur trade</strong> (Hudson's Bay Company) and is an official national emblem."],
+  ["symbols","What is the Peace Tower?","Part of the Parliament Buildings in Ottawa, built as a memorial to the First World War. Centre Block was rebuilt after a fire in 1916."],
+  ["symbols","What is Canada Day?","<strong>July 1</strong>, the anniversary of Confederation in 1867."],
+  ["symbols","What is Remembrance Day?","<strong>November 11</strong>. Canadians wear a red <strong>poppy</strong> and pause at the 11th hour to honour veterans and those who died serving."],
+  ["symbols","Other national holidays to know?","<strong>Victoria Day</strong> (Monday before May 25, the Sovereign's birthday), <strong>Fête nationale</strong> (June 24, Quebec), <strong>Labour Day</strong> (1st Monday of September), <strong>Thanksgiving</strong> (2nd Monday of October)."],
+  ["symbols","What is the Order of Canada?","An honour created in <strong>1967</strong> to recognize outstanding achievement and service."],
+
+  // Geography / economy
+  ["geo","How big is Canada?","The <strong>second-largest country</strong> in the world, bordered by the <strong>Pacific, Arctic and Atlantic</strong> oceans.","From sea to sea to sea."],
+  ["geo","Canada's capital?","<strong>Ottawa</strong>, chosen by <strong>Queen Victoria</strong> in <strong>1857</strong>."],
+  ["geo","How many provinces and territories?","<strong>10 provinces</strong> and <strong>3 territories</strong>."],
+  ["geo","Canada's five regions?","<strong>Atlantic</strong> (NL, PEI, NS, NB) · <strong>Central</strong> (QC, ON) · <strong>Prairies</strong> (MB, SK, AB) · <strong>West Coast</strong> (BC) · <strong>North</strong> (YT, NT, NU)."],
+  ["geo","Canada's border with the United States?","The <strong>longest undefended international border</strong> in the world."],
+  ["geo","The three main types of industry?","<strong>Service</strong> (most Canadians work here), <strong>manufacturing</strong> and <strong>natural resources</strong> (forestry, fishing, agriculture, mining, energy)."],
+  ["geo","Canada's largest trading partner?","The <strong>United States</strong>."],
+  ["geo","Newfoundland and Labrador","Capital <strong>St. John's</strong>. Oldest colony of the British Empire. Joined Canada in <strong>1949</strong>, the last province to join."],
+  ["geo","Prince Edward Island","Capital <strong>Charlottetown</strong>. <strong>Smallest province</strong>, the “birthplace of Confederation” (Charlottetown Conference, 1864). Joined 1873."],
+  ["geo","Nova Scotia","Capital <strong>Halifax</strong>. Largest port in the East. <strong>Pier 21</strong> welcomed about a million immigrants (1928–1971)."],
+  ["geo","New Brunswick","Capital <strong>Fredericton</strong>. The <strong>only officially bilingual province</strong>."],
+  ["geo","Quebec","Capital <strong>Quebec City</strong>. Mostly French-speaking. A leader in hydro-electricity."],
+  ["geo","Ontario","Capital <strong>Toronto</strong>, Canada's largest city and financial centre. <strong>More than a third</strong> of Canadians live in Ontario."],
+  ["geo","Manitoba","Capital <strong>Winnipeg</strong>. Agriculture, mining and hydro. Joined 1870."],
+  ["geo","Saskatchewan","Capital <strong>Regina</strong>, home of the RCMP training academy. Known as the “breadbasket of the world”. Joined 1905."],
+  ["geo","Alberta","Capital <strong>Edmonton</strong>. Named after Princess Louise Caroline Alberta. Largest producer of <strong>oil and gas</strong>. Joined 1905."],
+  ["geo","British Columbia","Capital <strong>Victoria</strong>. The Port of <strong>Vancouver</strong> is Canada's gateway to Asia-Pacific. Joined 1871."],
+  ["geo","Yukon","Capital <strong>Whitehorse</strong>. The <strong>Klondike Gold Rush</strong> of the 1890s. Mount Logan is Canada's highest mountain."],
+  ["geo","Northwest Territories","Capital <strong>Yellowknife</strong>, the “diamond capital of North America”."],
+  ["geo","Nunavut","Capital <strong>Iqaluit</strong>. Means <strong>“our land”</strong> in Inuktitut. Created in <strong>1999</strong>."]
+];
+
+const DATES = [
+  ["c. 1000","Vikings at L'Anse aux Meadows"],["1497","John Cabot maps the Atlantic shore"],["1534","Jacques Cartier claims land for France"],
+  ["1604","First European settlement (Acadia)"],["1608","Champlain founds Quebec City"],["1670","Hudson's Bay Company"],
+  ["1759","Battle of the Plains of Abraham"],["1774","Quebec Act"],["1791","Upper & Lower Canada"],["1793","Simcoe moves to abolish slavery"],
+  ["1812–14","War of 1812"],["1840","Act of Union"],["1848","Responsible government"],["1867","Confederation: ON, QC, NS, NB"],
+  ["1870","Manitoba & NWT join"],["1871","British Columbia joins"],["1873","PEI joins; NWMP founded"],["1885","CPR completed"],
+  ["1898","Yukon becomes a territory"],["1905","Alberta & Saskatchewan join"],["1916","Manitoba: women vote first"],["1917","Vimy Ridge"],
+  ["1918","Most women win the federal vote"],["1944","D-Day, Juno Beach"],["1949","Newfoundland & Labrador joins"],["1965","Maple Leaf flag"],
+  ["1969","Official Languages Act"],["1980","“O Canada” becomes the anthem"],["1982","Charter of Rights and Freedoms"],["1999","Nunavut created"]
+];
+
+let topic = "all", quiz = false, hideKnown = false, order = CARDS.map((_, i) => i);
+const store = (() => { try { const s = window.localStorage; s.setItem("_t", "1"); return s; } catch (e) { return null; } })();
+const KEY = "dc-cards-known";
+let known = new Set(JSON.parse((store && store.getItem(KEY)) || "[]"));
+const saveKnown = () => { if (store) store.setItem(KEY, JSON.stringify([...known])); };
+
+function renderChips() {
+  const el = document.getElementById("chips");
+  const all = [["all", "All topics", CARDS.length]].concat(TOPICS.map(t => [t[0], t[1], CARDS.filter(c => c[0] === t[0]).length]));
+  el.innerHTML = all.map(([id, name, n]) => `<button class="chip" data-t="${id}" aria-pressed="${id === topic}">${name}<span class="n">${n}</span></button>`).join("");
+  el.querySelectorAll(".chip").forEach(b => b.onclick = () => { topic = b.dataset.t; renderChips(); render(); });
+}
+
+function render() {
+  const main = document.getElementById("main");
+  main.className = quiz ? "quiz" : "";
+  let html = "";
+  for (const [id, name, sub] of TOPICS) {
+    if (topic !== "all" && topic !== id) continue;
+    const idx = order.filter(i => CARDS[i][0] === id && !(hideKnown && known.has(i)));
+    let body = idx.map(i => {
+      const [, q, a, hook] = CARDS[i];
+      return `<article class="card${known.has(i) ? " known" : ""}" data-i="${i}">
+        <button class="star" aria-label="Mark as known" aria-pressed="${known.has(i)}">★</button>
+        <div class="q">${q}</div>
+        <div class="ans" tabindex="${quiz ? 0 : -1}"><div class="a">${a}</div>${hook ? `<div class="hook"><b>Remember:</b> ${hook}</div>` : ""}</div>
+      </article>`;
+    }).join("");
+    if (!body) body = `<p class="empty">You've starred every card in this topic.</p>`;
+    let extra = "";
+    if (id === "history") extra = `<h2 style="font-size:18px;margin:4px 0 8px">Key dates</h2><ol class="timeline">${DATES.map(([y, e]) => `<li><span class="y">${y}</span><span>${e}</span></li>`).join("")}</ol><h2 style="font-size:18px;margin:22px 0 10px">Cards</h2>`;
+    if (id === "gov") extra = mineBox();
+    html += `<section id="${id}"><h2>${name}<small>${idx.length} cards</small></h2><p class="sub">${sub}</p>${extra}<div class="grid">${body}</div></section>`;
+  }
+  main.innerHTML = html;
+  main.querySelectorAll(".card").forEach(c => {
+    const i = +c.dataset.i;
+    c.querySelector(".star").onclick = () => { known.has(i) ? known.delete(i) : known.add(i); saveKnown(); hideKnown ? render() : (c.classList.toggle("known"), c.querySelector(".star").setAttribute("aria-pressed", known.has(i))); stats(); };
+    const ans = c.querySelector(".ans");
+    const flip = () => { if (quiz) c.classList.toggle("open"); };
+    ans.onclick = flip;
+    ans.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } };
+  });
+  main.querySelectorAll(".mine input").forEach(inp => {
+    inp.value = (store && store.getItem("dc-mine-" + inp.id)) || "";
+    inp.oninput = () => { if (store) store.setItem("dc-mine-" + inp.id, inp.value); };
+  });
+  stats();
+}
+
+function mineBox() {
+  const f = [["pm","Prime Minister"],["gg","Governor General"],["premier","Premier of your province"],["lg","Lieutenant Governor of your province"],["capital","Your provincial capital"],["mp","Your Member of Parliament"]];
+  return `<div class="mine" style="margin-bottom:14px"><strong>Look these up: they change, so they're not printed in the guide.</strong>
+    <div class="sub" style="margin:2px 0 0">Type the current names here from canada.ca. They stay in this browser only.</div>
+    <div class="fields">${f.map(([id, l]) => `<label for="${id}">${l}<input id="${id}" autocomplete="off"></label>`).join("")}</div></div>`;
+}
+
+function stats() {
+  const n = CARDS.length, k = known.size;
+  document.getElementById("stats").innerHTML =
+    `<span class="pill"><b>${n}</b> cards</span><span class="pill"><b>${TOPICS.length}</b> topics</span><span class="pill"><b>${DATES.length}</b> key dates</span><span class="pill">★ <b>${k}</b> of ${n} known</span>`;
+  document.getElementById("prog").style.width = (100 * k / n) + "%";
+}
+
+document.getElementById("mStudy").onclick = () => { quiz = false; setMode(); };
+document.getElementById("mQuiz").onclick = () => { quiz = true; setMode(); };
+function setMode() {
+  document.getElementById("mStudy").setAttribute("aria-pressed", !quiz);
+  document.getElementById("mQuiz").setAttribute("aria-pressed", quiz);
+  render();
+}
+document.getElementById("shuffle").onclick = () => {
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  render();
+};
+document.getElementById("hideKnown").onchange = e => { hideKnown = e.target.checked; render(); };
+renderChips(); render();
+</script>
+</body>
+</html>
