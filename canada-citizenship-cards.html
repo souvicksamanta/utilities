@@ -3,130 +3,151 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Discover Canada Quick Cards</title>
+<title>Canadian Citizenship Study Cards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  /* Layout: sticky toolbar over a dense grid of fact cards, a key-dates rail in History */
-  --bg: #f4f5f7;
-  --card: #ffffff;
-  --ink: #1b1f2a;
-  --muted: #5b6270;
-  --line: #dde0e6;
-  --accent: #c8102e;
-  --accent-soft: #fbe9ec;
-  --good: #1d7f55;
-  --good-soft: #e3f3eb;
-  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-  color-scheme: light;
+:root{
+  --bg:#f6f2f2;--card:#fff;--ink:#22181a;--muted:#6b5d60;--line:#eadfe0;
+  --accent:#c8102e;--accent-dk:#9e0b23;--accent-soft:#fbe9ec;--accent-2:#fdf7f8;
+  --good:#1d7f55;--good-soft:#e3f3eb;
+  --shadow:0 1px 2px rgba(60,16,24,.06),0 4px 14px rgba(60,16,24,.06);
+  --font:"Plus Jakarta Sans",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#141012;--card:#1e181a;--ink:#f0e9ea;--muted:#b3a3a6;--line:#352a2d;
+  --accent:#ff5a6e;--accent-dk:#e0465a;--accent-soft:#3a1d23;--accent-2:#1a1416;
+  --good:#4cc78f;--good-soft:#17322a;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-padding-top:120px}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--font);-webkit-text-size-adjust:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+button{font:600 14px var(--font);cursor:pointer;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;white-space:nowrap;flex:none;line-height:1.2}
+button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.appbar{background:var(--accent);color:#fff}
+.appbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;min-width:0}
+.logo .ic{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:19px;flex:none}
+.logo span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar .sp{flex:1}
+.seg{display:inline-flex;background:rgba(0,0,0,.18);border-radius:99px;padding:3px;flex:none}
+.seg button{border:0;background:none;color:#fff;padding:6px 14px}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--accent-dk)}
+.chipbar{background:var(--card);border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 20px;max-width:1180px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;gap:6px}
+.chip .e{font-size:15px;line-height:1}
+.chip .n{opacity:.6;font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.progress{height:4px;background:var(--line)}
+.progress i{display:block;height:100%;width:0;background:var(--good);transition:width .3s}
+
+/* toolbar under bar */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:16px 0 0}
+.stats{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 auto}
+.pill{font-size:13px;font-weight:600;padding:5px 11px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill b{color:var(--ink)}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+label.check{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 12px;white-space:nowrap}
+label.check input{accent-color:var(--accent);margin:0}
+
+/* sections */
+main{padding:18px 0 60px;display:grid;gap:36px}
+main>section,.grid>*{min-width:0}
+.shead{display:flex;align-items:center;gap:14px;margin:0 0 14px}
+.shead .big{width:52px;height:52px;border-radius:16px;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;font-size:28px;flex:none}
+.shead h2{margin:0;font-size:22px;line-height:1.2;font-weight:800;letter-spacing:-.01em;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.shead h2 small{font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 9px;border-radius:99px}
+.shead p{margin:2px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+h3.subh{font-size:16px;font-weight:800;margin:4px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px 14px;box-shadow:var(--shadow);display:grid;gap:8px;align-content:start;position:relative;overflow-wrap:anywhere}
+.card.known{border-color:var(--good);background:linear-gradient(var(--good-soft),var(--card) 60%)}
+.card .q{font-weight:800;padding-right:36px;line-height:1.4;display:flex;gap:9px}
+.card .q::before{content:"Q";flex:none;width:22px;height:22px;border-radius:7px;background:var(--accent-soft);color:var(--accent);font-size:12px;display:grid;place-items:center;margin-top:1px}
+.card .a{line-height:1.6}
+.card .a strong{color:var(--accent)}
+.card .hook{font-size:14px;background:var(--accent-2);border:1px dashed var(--line);border-radius:10px;padding:8px 10px;line-height:1.5}
+.card .hook b{color:var(--accent)}
+.star{position:absolute;top:12px;right:12px;width:32px;height:32px;padding:0;border-radius:50%;display:grid;place-items:center;font-size:16px;color:var(--muted)}
+.card.known .star{background:var(--good);border-color:var(--good);color:#fff}
+.ans{display:grid;gap:8px;position:relative}
+.quiz .card .ans{cursor:pointer;border-radius:10px;min-height:44px}
+.quiz .card:not(.open) .ans>*{filter:blur(7px);user-select:none}
+.quiz .card:not(.open) .ans::after{content:"👆 Tap to reveal";position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--accent)}
+
+.timeline{list-style:none;margin:0 0 6px;padding:6px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0 22px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.timeline li{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14.5px;line-height:1.45}
+.timeline .y{font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+
+.mine{background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}
+.mine .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px 16px;margin-top:10px}
+.mine label{display:grid;gap:4px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.mine input{font:15px var(--font);padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.sub{color:var(--muted);font-size:14px}
+.empty{color:var(--muted);padding:20px 0}
+footer{color:var(--muted);font-size:13px;padding:0 20px 40px;max-width:1180px;margin:0 auto;line-height:1.5}
+footer a{color:var(--accent)}
+
+@media (max-width:640px){
+  body{font-size:15px}
+  html{scroll-padding-top:112px}
+  .wrap{padding:0 12px}
+  .appbar .wrap{height:52px;gap:8px}
+  .logo{font-size:16px;gap:8px}
+  .logo .ic{width:30px;height:30px;font-size:16px}
+  .seg button{padding:6px 11px;font-size:13px}
+  .chips{padding:8px 12px;gap:6px}
+  .chips button{font-size:13px;padding:6px 11px}
+  .toolbar{padding-top:12px;gap:8px}
+  .stats{gap:5px}
+  .pill{font-size:12px;padding:4px 9px}
+  .tools{width:100%}
+  .tools button,.tools label.check{flex:1;justify-content:center;font-size:13px}
+  main{padding:14px 0 50px;gap:30px}
+  .shead{gap:12px;margin-bottom:12px}
+  .shead .big{width:44px;height:44px;font-size:23px;border-radius:13px}
+  .shead h2{font-size:19px}
+  .shead p{font-size:13px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .card{padding:14px 14px 12px}
+  .timeline{grid-template-columns:1fr;padding:4px 14px}
+  .timeline li{grid-template-columns:62px 1fr;font-size:14px}
+  .mine{padding:14px}
+  .mine .fields{grid-template-columns:1fr}
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #14161b; --card: #1d2027; --ink: #eceef2; --muted: #a2a8b4; --line: #2f333d;
-    --accent: #ff5a6e; --accent-soft: #3a1d23; --good: #4cc78f; --good-soft: #17322a;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #14161b; --card: #1d2027; --ink: #eceef2; --muted: #a2a8b4; --line: #2f333d;
-  --accent: #ff5a6e; --accent-soft: #3a1d23; --good: #4cc78f; --good-soft: #17322a;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; }
-body { background: var(--bg); color: var(--ink); font: 17px/1.45 var(--body); }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-header.top { padding: 36px 0 18px; display: grid; gap: 10px; }
-.brand { display: flex; align-items: center; gap: 12px; }
-.brand svg { width: 34px; height: 34px; flex: none; }
-h1 { font: 800 clamp(30px, 5vw, 46px)/1.05 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
-.lede { margin: 0; color: var(--muted); max-width: 68ch; }
-.stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.pill { font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
-.pill b { color: var(--ink); font-variant-numeric: tabular-nums; }
-
-.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
-.bar .wrap { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 520px; }
-button, .chip { font: 600 15px var(--body); cursor: pointer; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 6px 13px; }
-button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.chip .n { opacity: .6; font-variant-numeric: tabular-nums; margin-left: 4px; }
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
-.seg button { border: 0; border-radius: 0; padding: 6px 14px; }
-.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
-.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 15px; color: var(--muted); cursor: pointer; }
-.progress { height: 4px; background: var(--line); }
-.progress i { display: block; height: 100%; width: 0; background: var(--good); transition: width .3s; }
-
-main { padding: 22px 0 60px; display: grid; gap: 34px; }
-section h2 { font: 800 24px/1.1 var(--display); margin: 0 0 4px; display: flex; gap: 10px; align-items: baseline; text-wrap: balance; }
-section h2 small { font: 600 14px var(--body); color: var(--muted); }
-section .sub { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px; display: grid; gap: 6px; align-content: start; position: relative; }
-.card.known { border-color: var(--good); background: linear-gradient(var(--good-soft), var(--card) 60%); }
-.card .q { font-weight: 700; padding-right: 30px; }
-.card .a { color: var(--ink); }
-.card .a strong { color: var(--accent); }
-.card .hook { font-size: 14.5px; background: var(--accent-soft); border-radius: 8px; padding: 6px 9px; }
-.card .hook b { color: var(--accent); }
-.star { position: absolute; top: 9px; right: 9px; width: 30px; height: 30px; padding: 0; border-radius: 50%; display: grid; place-items: center; font-size: 16px; color: var(--muted); }
-.card.known .star { background: var(--good); border-color: var(--good); color: #fff; }
-
-.quiz .card .ans { position: relative; cursor: pointer; border-radius: 8px; }
-.quiz .card:not(.open) .ans > * { filter: blur(7px); user-select: none; }
-.quiz .card:not(.open) .ans::after { content: "Tap to reveal"; position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700; font-size: 14px; color: var(--accent); }
-.ans { display: grid; gap: 6px; }
-
-.timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0 18px; }
-.timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 15.5px; }
-.timeline .y { font: 800 17px var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
-
-.mine { background: var(--card); border: 2px solid var(--accent); border-radius: 14px; padding: 16px 18px; }
-.mine .fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 16px; margin-top: 10px; }
-.mine label { display: grid; gap: 3px; font-size: 14px; font-weight: 600; color: var(--muted); }
-.mine input { font: 16px var(--body); padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
-.empty { color: var(--muted); padding: 20px 0; }
-footer { color: var(--muted); font-size: 14px; padding-bottom: 40px; }
-footer a { color: var(--accent); }
-@media (max-width: 600px) { body { font-size: 16px; } .timeline li { grid-template-columns: 64px 1fr; } }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (max-width:340px){.logo span{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="brand">
-      <svg viewBox="-1 -1.05 2 1.7" aria-hidden="true"><polygon fill="#c8102e" points="0,-1 .12,-.75 .28,-.82 .22,-.4 .45,-.62 .5,-.5 .75,-.55 .68,-.3 .85,-.2 .5,.05 .58,.22 .05,.15 .05,.55 -.05,.55 -.05,.15 -.58,.22 -.5,.05 -.85,-.2 -.68,-.3 -.75,-.55 -.5,-.5 -.45,-.62 -.22,-.4 -.28,-.82 -.12,-.75"/></svg>
-      <h1>Discover Canada Quick Cards</h1>
+<div class="top">
+  <div class="appbar"><div class="wrap">
+    <div class="logo"><div class="ic">🍁</div><span>Citizenship Study Cards</span></div>
+    <div class="sp"></div>
+    <div class="seg" role="group" aria-label="Mode">
+      <button id="mStudy" aria-pressed="true">Study</button>
+      <button id="mQuiz" aria-pressed="false">Quiz</button>
     </div>
-    <p class="lede">The most-tested facts from <em>Discover Canada</em>, the official citizenship study guide, on short cards. Read them in Study mode first. Then switch to Quiz mode, try each card in your head, and tap to check. Press ★ on the cards you know.</p>
-    <div class="stats" id="stats"></div>
-  </header>
-</div>
-
-<div class="bar">
-  <div class="wrap">
-    <div class="chips" id="chips" role="group" aria-label="Topic"></div>
-    <div class="tools">
-      <div class="seg" role="group" aria-label="Mode">
-        <button id="mStudy" aria-pressed="true">Study</button>
-        <button id="mQuiz" aria-pressed="false">Quiz</button>
-      </div>
-      <button id="shuffle">Shuffle</button>
-      <label class="check"><input type="checkbox" id="hideKnown"> Hide starred</label>
-    </div>
-  </div>
+  </div></div>
+  <div class="chipbar"><div class="chips" id="chips" role="group" aria-label="Topic"></div></div>
   <div class="progress"><i id="prog"></i></div>
 </div>
 
 <div class="wrap">
+  <div class="toolbar">
+    <div class="stats" id="stats"></div>
+    <div class="tools">
+      <button id="shuffle">🔀 Shuffle</button>
+      <label class="check"><input type="checkbox" id="hideKnown"> Hide ★ known</label>
+    </div>
+  </div>
   <main id="main"></main>
   <footer>
     Source: <a href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html">Discover Canada: The Rights and Responsibilities of Citizenship</a>, Immigration, Refugees and Citizenship Canada. The test can also ask about current office-holders, so check the names in the “Look these up” box on canada.ca before your test.
@@ -276,6 +297,7 @@ const DATES = [
   ["1969","Official Languages Act"],["1980","“O Canada” becomes the anthem"],["1982","Charter of Rights and Freedoms"],["1999","Nunavut created"]
 ];
 
+const ICON = {all:"✨",rights:"🛡️",people:"👥",history:"📜",gov:"🏛️",justice:"⚖️",symbols:"🍁",geo:"🗺️"};
 let topic = "all", quiz = false, hideKnown = false, order = CARDS.map((_, i) => i);
 const store = (() => { try { const s = window.localStorage; s.setItem("_t", "1"); return s; } catch (e) { return null; } })();
 const KEY = "dc-cards-known";
@@ -285,8 +307,8 @@ const saveKnown = () => { if (store) store.setItem(KEY, JSON.stringify([...known
 function renderChips() {
   const el = document.getElementById("chips");
   const all = [["all", "All topics", CARDS.length]].concat(TOPICS.map(t => [t[0], t[1], CARDS.filter(c => c[0] === t[0]).length]));
-  el.innerHTML = all.map(([id, name, n]) => `<button class="chip" data-t="${id}" aria-pressed="${id === topic}">${name}<span class="n">${n}</span></button>`).join("");
-  el.querySelectorAll(".chip").forEach(b => b.onclick = () => { topic = b.dataset.t; renderChips(); render(); });
+  el.innerHTML = all.map(([id, name, n]) => `<button class="chip" data-t="${id}" aria-pressed="${id === topic}"><span class="e">${ICON[id]}</span>${name}<span class="n">${n}</span></button>`).join("");
+  el.querySelectorAll(".chip").forEach(b => b.onclick = () => { topic = b.dataset.t; renderChips(); render(); const on = el.querySelector('[aria-pressed="true"]'); if (on) on.scrollIntoView({inline:"center",block:"nearest"}); window.scrollTo({top:0,behavior:"smooth"}); });
 }
 
 function render() {
@@ -301,14 +323,14 @@ function render() {
       return `<article class="card${known.has(i) ? " known" : ""}" data-i="${i}">
         <button class="star" aria-label="Mark as known" aria-pressed="${known.has(i)}">★</button>
         <div class="q">${q}</div>
-        <div class="ans" tabindex="${quiz ? 0 : -1}"><div class="a">${a}</div>${hook ? `<div class="hook"><b>Remember:</b> ${hook}</div>` : ""}</div>
+        <div class="ans" tabindex="${quiz ? 0 : -1}"><div class="a">${a}</div>${hook ? `<div class="hook">💡 <b>Remember:</b> ${hook}</div>` : ""}</div>
       </article>`;
     }).join("");
     if (!body) body = `<p class="empty">You've starred every card in this topic.</p>`;
     let extra = "";
-    if (id === "history") extra = `<h2 style="font-size:18px;margin:4px 0 8px">Key dates</h2><ol class="timeline">${DATES.map(([y, e]) => `<li><span class="y">${y}</span><span>${e}</span></li>`).join("")}</ol><h2 style="font-size:18px;margin:22px 0 10px">Cards</h2>`;
+    if (id === "history") extra = `<h3 class="subh">🗓️ Key dates</h3><ol class="timeline">${DATES.map(([y, e]) => `<li><span class="y">${y}</span><span>${e}</span></li>`).join("")}</ol><h3 class="subh" style="margin-top:22px">🃏 Cards</h3>`;
     if (id === "gov") extra = mineBox();
-    html += `<section id="${id}"><h2>${name}<small>${idx.length} cards</small></h2><p class="sub">${sub}</p>${extra}<div class="grid">${body}</div></section>`;
+    html += `<section id="${id}"><div class="shead"><div class="big">${ICON[id]}</div><div><h2>${name}<small>${idx.length} cards</small></h2><p>${sub}</p></div></div>${extra}<div class="grid">${body}</div></section>`;
   }
   main.innerHTML = html;
   main.querySelectorAll(".card").forEach(c => {
@@ -328,7 +350,7 @@ function render() {
 
 function mineBox() {
   const f = [["pm","Prime Minister"],["gg","Governor General"],["premier","Premier of your province"],["lg","Lieutenant Governor of your province"],["capital","Your provincial capital"],["mp","Your Member of Parliament"]];
-  return `<div class="mine" style="margin-bottom:14px"><strong>Look these up: they change, so they're not printed in the guide.</strong>
+  return `<div class="mine" style="margin-bottom:14px"><strong>🔎 Look these up: they change, so they're not printed in the guide.</strong>
     <div class="sub" style="margin:2px 0 0">Type the current names here from canada.ca. They stay in this browser only.</div>
     <div class="fields">${f.map(([id, l]) => `<label for="${id}">${l}<input id="${id}" autocomplete="off"></label>`).join("")}</div></div>`;
 }
@@ -336,7 +358,7 @@ function mineBox() {
 function stats() {
   const n = CARDS.length, k = known.size;
   document.getElementById("stats").innerHTML =
-    `<span class="pill"><b>${n}</b> cards</span><span class="pill"><b>${TOPICS.length}</b> topics</span><span class="pill"><b>${DATES.length}</b> key dates</span><span class="pill">★ <b>${k}</b> of ${n} known</span>`;
+    `<span class="pill"><b>${n}</b> cards</span><span class="pill"><b>${TOPICS.length}</b> topics</span><span class="pill"><b>${DATES.length}</b> key dates</span><span class="pill">⭐ <b>${k}</b> of ${n} known</span>`;
   document.getElementById("prog").style.width = (100 * k / n) + "%";
 }
 
