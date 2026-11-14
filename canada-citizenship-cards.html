@@ -31,6 +31,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 .top{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .appbar{background:var(--accent);color:#fff}
 .appbar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.home{display:inline-flex;align-items:center;gap:4px;height:34px;padding:0 12px 0 8px;border-radius:99px;background:rgba(255,255,255,.18);color:#fff;text-decoration:none;font-weight:700;font-size:14px;flex:none}
+.home:hover{background:rgba(255,255,255,.28)}
+.home svg{width:18px;height:18px}
+.home:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media (max-width:640px){.home{width:34px;padding:0;justify-content:center}.home span{display:none}}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;min-width:0}
 .logo .ic{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:19px;flex:none}
 .flag{display:block;width:1.35em;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
@@ -131,6 +136,7 @@ footer a{color:var(--accent)}
 <body>
 <div class="top">
   <div class="appbar"><div class="wrap">
+    <a class="home" href="./" title="Back to all utilities" aria-label="Back to all utilities"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Home</span></a>
     <div class="logo"><div class="ic"><svg class="flag" viewBox="0 0 40 20" aria-label="Canadian flag"><rect width="40" height="20" fill="#fff"/><rect width="10" height="20" fill="#d52b1e"/><rect x="30" width="10" height="20" fill="#d52b1e"/><polygon fill="#d52b1e" transform="translate(20 10.6) scale(7.2)" points="0,-1 .12,-.75 .28,-.82 .22,-.4 .45,-.62 .5,-.5 .75,-.55 .68,-.3 .85,-.2 .5,.05 .58,.22 .05,.15 .05,.55 -.05,.55 -.05,.15 -.58,.22 -.5,.05 -.85,-.2 -.68,-.3 -.75,-.55 -.5,-.5 -.45,-.62 -.22,-.4 -.28,-.82 -.12,-.75"/></svg></div><span>Citizenship Study Cards</span></div>
     <div class="sp"></div>
     <div class="seg" role="group" aria-label="Mode">
